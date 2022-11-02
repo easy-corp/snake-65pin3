@@ -12,7 +12,7 @@ import java.util.Iterator;
  * This class is responsible for the snakes canvas in GUI
  */
 public class SnakeCanvas extends Canvas {
-    private static final int CELL_SIZE = 60;
+    private static final int CELL_SIZE = 40;
     private static final int PAD = 2;
     private static final int SMALLER_PAD = 6;
     private static final int SMALL_PAD = 6;

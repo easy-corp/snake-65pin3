@@ -31,11 +31,12 @@ public class SnakesUIMain {
         ArrayList<Bot> bots = new ArrayList<>();
         BotLoader loader = new BotLoader();
 
-        //     Old code
-        bots.add(loader.getBotClass("minmax.minmax"));
-        bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
+        // Old code
+        // bots.add(loader.getBotClass("minmax.minmax"));
+        // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
 
-
+        bots.add(loader.getBotClass("bots.RandomBot"));
+        bots.add(loader.getBotClass("bots.RandomBot"));
 
         //for (String arg : args) {
         //    bots.add(loader.getBotClass(arg));
