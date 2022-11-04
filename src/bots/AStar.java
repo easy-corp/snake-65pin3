@@ -33,44 +33,27 @@ public class AStar implements Bot {
         //O custo nesse caso é 0
         abertas.add(new NossaCoordenada(snake.getHead(), 0.0));
         atual = getMenorCusto(abertas, apple);
+        
+        //Se não chegou ao local desejado
+        //Verifica os movimentos possiveis nos arredores
+        for (Direction d : this.direcoes) {
+            Coordinate proximoMovimento = snake.getHead().moveTo(d);
 
-        // //Enquanto houverem células abertas (a serem visitadas)
-        // while (abertas.size() > 0) {
-        //     //Nos movemos para a celula com menor g (custo)
-        //     atual = getMenorCusto(abertas, apple);
-        //     expandidas.add(atual);
-
-        //     //Verifica se chegou ao local desejado
-        //     if (atual.equals(apple)) {
-        //         break;
-        //     } else {
-                //Se não chegou ao local desejado
-                //Verifica os movimentos possiveis nos arredores
-                for (Direction d : this.direcoes) {
-                    Coordinate proximoMovimento = snake.getHead().moveTo(d);
-
-                    if (!proximoMovimento.equals(getAntesDaCabeca(snake)) &&  //Não pode mover para tras e se matar
-                        proximoMovimento.inBounds(mazeSize) &&                //Não pode mover fora do tabuleiro
-                        !snake.elements.contains(proximoMovimento) &&         //Não pode mover para cima do seu corpo
-                        !opponent.elements.contains(proximoMovimento) &&      //Não pode mover para cima do inimigo
-                        !abertas.contains(proximoMovimento) &&                //Não voltamos a células já abertas
-                        !expandidas.contains(proximoMovimento)                //Não voltamos a células já expandidas
-                    ) {
-                        //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
-                        //O custo é determinado pelo custo da célula atual + 1
-                        abertas.add(new NossaCoordenada(proximoMovimento, (atual.getCusto() + (10 / 3.5))));
-                    }
-                }
-
-                //VERIFICAR//
-
-                //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
-                return getDirection(snake.getHead(), getMenorCusto(abertas, apple).getCoordinate());
-        //     }
-        // }
+            if (!proximoMovimento.equals(getAntesDaCabeca(snake)) &&  //Não pode mover para tras e se matar
+                proximoMovimento.inBounds(mazeSize) &&                //Não pode mover fora do tabuleiro
+                !snake.elements.contains(proximoMovimento) &&         //Não pode mover para cima do seu corpo
+                !opponent.elements.contains(proximoMovimento) &&      //Não pode mover para cima do inimigo
+                !abertas.contains(proximoMovimento) &&                //Não voltamos a células já abertas
+                !expandidas.contains(proximoMovimento)                //Não voltamos a células já expandidas
+            ) {
+                //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
+                //O custo é determinado pelo custo da célula atual + 1
+                abertas.add(new NossaCoordenada(proximoMovimento, (atual.getCusto() + (14.0 / 3.5))));
+            }
+        }
 
         //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
-        // return getDirection(snake.getHead(), getMenorCusto(abertas, apple).getCoordinate());
+        return getDirection(snake.getHead(), getMenorCusto(abertas, apple).getCoordinate());
     }
 
     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
@@ -111,34 +94,28 @@ public class AStar implements Bot {
         Double y2 = (double) maca.getY();
 
         //Fórmula da Distância Euclidiana
-        double distancia = Math.sqrt((Math.pow((x1 - x2), 2)) + (Math.pow(y2 - y2, 2)));
+        double distancia = Math.sqrt((Math.pow((x1 - x2), 2)) + (Math.pow(y1 - y2, 2)));
         
         return distancia;
     }
 
     //Retorna direção para chegar ao ponto X
     public Direction getDirection(Coordinate snake, Coordinate coordenada) {
-        System.out.println("Estou em: " + snake.toString());
-        System.out.println("A maçã em: " + coordenada.toString());
 
         if (snake.getX() == coordenada.getX()) {
             if (snake.getY() < coordenada.getY()) {
-                System.out.println("A maçã está para cima");
-                System.out.println("------------------------");
+                //Vai para cima
                 return direcoes.get(0);
             } else {
-                System.out.println("A maçã está para baixo");
-                System.out.println("------------------------");
+                //Vai para baixo
                 return direcoes.get(1);
             }
         } else {
             if (snake.getX() < coordenada.getX()) {
-                System.out.println("A maçã está para direita");
-                System.out.println("------------------------");
+                //Vai para direita
                 return direcoes.get(2);
             } else {
-                System.out.println("A maçã está para esquerda");
-                System.out.println("------------------------");
+                //Vai para esquerda
                 return direcoes.get(3);
             }
         }
