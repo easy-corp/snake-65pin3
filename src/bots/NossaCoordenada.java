@@ -4,10 +4,10 @@ import snakes.Coordinate;
 
 public class NossaCoordenada {
     
-    private Coordinate coordinate;
-    private int custo;
+    private Coordinate coordinate;    //A coordenada
+    private Double custo;             //O custo
 
-    public NossaCoordenada(Coordinate coordinate, int custo) {
+    public NossaCoordenada(Coordinate coordinate, Double custo) {
         this.coordinate = coordinate;
         this.custo = custo;
     }
@@ -16,7 +16,7 @@ public class NossaCoordenada {
         return this.coordinate;
     }
 
-    public int getCusto() {
+    public Double getCusto() {
         return this.custo;
     } 
 

@@ -36,7 +36,8 @@ public class SnakesUIMain {
         // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
 
         bots.add(loader.getBotClass("bots.RandomBot"));
-        bots.add(loader.getBotClass("bots.RandomBot"));
+        // bots.add(loader.getBotClass("bots.AStar"));
+        bots.add(loader.getBotClass("bots.AStar"));
 
         //for (String arg : args) {
         //    bots.add(loader.getBotClass(arg));

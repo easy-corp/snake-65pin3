@@ -13,6 +13,15 @@ public class Coordinate implements Comparable<Coordinate> {
         this.y = y;
     }
 
+    //Our code
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
     /**
      * Add two coordinates of two points
      *
@@ -100,5 +109,9 @@ public class Coordinate implements Comparable<Coordinate> {
             return dy;
         else
             return dx;
+    }
+
+    public String toString() {
+        return this.getX() + " - " + this.getY();
     }
 }
