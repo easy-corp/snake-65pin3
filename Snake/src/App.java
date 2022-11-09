@@ -13,6 +13,6 @@ import control.ControladorInicio;
 public class App {
  
     public static void main(String[] args) {
-        ControladorInicio controladorInicio = new ControladorInicio();        
+        ControladorInicio controladorInicio = new ControladorInicio();
     } 
 }

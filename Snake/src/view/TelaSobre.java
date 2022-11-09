@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Toolkit;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -19,6 +22,11 @@ public class TelaSobre extends javax.swing.JFrame {
      */
     public TelaSobre() {
         initComponents();
+        
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+        this.setLocation(x, y);
         
         StyledDocument doc = txtSobre.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();

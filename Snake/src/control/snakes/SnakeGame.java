@@ -10,8 +10,8 @@ import java.util.Random;
  * Run game for two bots
  */
 public class SnakeGame {
-    private static final String LOG_FILE = "log.txt";
-    private static final long TIMEOUT_THRESHOLD = 1;// timeout threshold for taking a decision in seconds
+    private final String LOG_FILE = "log.txt";
+    private final long TIMEOUT_THRESHOLD = 1;// timeout threshold for taking a decision in seconds
     public final Snake snake0, snake1;
     public final Coordinate mazeSize;
     private final Bot bot0, bot1;

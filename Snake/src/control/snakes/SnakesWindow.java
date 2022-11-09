@@ -11,8 +11,8 @@ public class SnakesWindow implements Runnable {
     private JFrame frame;
     private SnakeCanvas canvas;
     private SnakeGame game;
-    private final static int TIME_LIMIT_PER_GAME = 3*60*1000;  // time limit in milliseconds
-    private final static int TIME_LIMIT_PER_STEP = 1000; // time limit for one step in mills
+    private final int TIME_LIMIT_PER_GAME = 3*60*1000;  // time limit in milliseconds
+    private final int TIME_LIMIT_PER_STEP = 1000; // time limit for one step in mills
 
     private boolean running = false;
 
@@ -21,7 +21,7 @@ public class SnakesWindow implements Runnable {
      * @param game main game flow with all its states within
      */
     public SnakesWindow(SnakeGame game) {
-        frame = new JFrame("Snake Game");
+        frame = new JFrame("Snake | Game");
         this.game = game;
         canvas = new SnakeCanvas(game);
         JPanel panel = (JPanel) frame.getContentPane();
@@ -33,7 +33,7 @@ public class SnakesWindow implements Runnable {
 
         panel.add(canvas);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
@@ -50,7 +50,7 @@ public class SnakesWindow implements Runnable {
      * Centers the window
      * @param frame game's window
      */
-    public static void centreWindow(Window frame) {
+    public void centreWindow(Window frame) {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
@@ -94,7 +94,7 @@ public class SnakesWindow implements Runnable {
             }
         }
 
-        //JOptionPane.showMessageDialog(null, game.gameResult, "Game results", JOptionPane.INFORMATION_MESSAGE);
+        // JOptionPane.showMessageDialog(null, game.gameResult, "Game results", JOptionPane.INFORMATION_MESSAGE);
 
     }
 

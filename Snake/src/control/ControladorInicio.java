@@ -19,7 +19,7 @@ public class ControladorInicio {
     
     public ControladorInicio() {
         this.telaInicial = new TelaInicial();
-        this.telaInicial.setVisible(true);
+        this.telaInicial.setVisible(true);        
         
         this.acaoBotoes();
     }

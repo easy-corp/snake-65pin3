@@ -9,9 +9,9 @@ import java.util.ArrayList;
  * Implements tournament of the snake game with several rounds
  */
 public class SnakesUIMain {
-    private static final String LOG_DIRECTORY_PATH = "logs";
-    private static FileWriter results_fw;
-    private static int[][] total_results_table;
+    private final String LOG_DIRECTORY_PATH = "logs";
+    private FileWriter results_fw;
+    private int[][] total_results_table;
     
     public void comecarJogo() throws IOException, InterruptedException {
         //if (args.length < 2) {
@@ -34,7 +34,7 @@ public class SnakesUIMain {
         //    bots.add(loader.getBotClass(arg));
         //}
 
-        start_tournament_n_times(1, bots);
+        this.start_tournament_n_times(1, bots);
     }
 
     /**
@@ -45,29 +45,29 @@ public class SnakesUIMain {
      * @throws IOException          FileWriter handler
      */
     
-    public static void main(String[] args) throws IOException, InterruptedException {
-        //if (args.length < 2) {
-        //    System.err.println("You must provide two classes implementing the Bot interface.");
-        //    System.exit(1);
-        //}
+    // public static void main(String[] args) throws IOException, InterruptedException {
+    //     //if (args.length < 2) {
+    //     //    System.err.println("You must provide two classes implementing the Bot interface.");
+    //     //    System.exit(1);
+    //     //}
 
-        ArrayList<Bot> bots = new ArrayList<>();
-        BotLoader loader = new BotLoader();
+    //     ArrayList<Bot> bots = new ArrayList<>();
+    //     BotLoader loader = new BotLoader();
 
-        // Old code
-        // bots.add(loader.getBotClass("minmax.minmax"));
-        // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
+    //     // Old code
+    //     // bots.add(loader.getBotClass("minmax.minmax"));
+    //     // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
 
-        bots.add(loader.getBotClass("control.bots.RandomBot"));
-        // bots.add(loader.getBotClass("bots.AStar"));
-        bots.add(loader.getBotClass("control.bots.AStar"));
+    //     bots.add(loader.getBotClass("control.bots.RandomBot"));
+    //     // bots.add(loader.getBotClass("bots.AStar"));
+    //     bots.add(loader.getBotClass("control.bots.AStar"));
 
-        //for (String arg : args) {
-        //    bots.add(loader.getBotClass(arg));
-        //}
+    //     //for (String arg : args) {
+    //     //    bots.add(loader.getBotClass(arg));
+    //     //}
 
-        start_tournament_n_times(1, bots);
-    }
+    //     start_tournament_n_times(1, bots);
+    // }
 
     /**
      * Launch several rounds of snake game between bots
@@ -77,27 +77,35 @@ public class SnakesUIMain {
      * @throws IOException          FileWriter handler
      * @throws InterruptedException Threads handler
      */
-    public static void start_tournament_n_times(int n, ArrayList<Bot> bots) throws IOException, InterruptedException {
-        total_results_table = new int[bots.size() + 1][bots.size() + 1];
-        File dir = new File(LOG_DIRECTORY_PATH);
+    public void start_tournament_n_times(int n, ArrayList<Bot> bots) throws IOException, InterruptedException {
+        this.total_results_table = new int[bots.size() + 1][bots.size() + 1];
+        File dir = new File(this.LOG_DIRECTORY_PATH);
+        
         if (!dir.exists() && !dir.mkdirs()) {
             System.err.println("Cannot create log directory.");
         }
+        
         for (int i = 0; i < n; i++) {
             System.out.println("\nTournament iteration number " + i + "\n");
-            results_fw = new FileWriter(String.format("%s\\iteration_%d.txt", LOG_DIRECTORY_PATH, i), false);
-            start_round_robin_tournament(bots);
-            results_fw.close();
+            this.results_fw = new FileWriter(String.format("%s\\iteration_%d.txt", LOG_DIRECTORY_PATH, i), false);
+            
+            this.start_round_robin_tournament(bots);
+            
+            this.results_fw.close();
         }
 
-        results_fw = new FileWriter(String.format("%s\\total.txt", LOG_DIRECTORY_PATH), false);
+        this.results_fw = new FileWriter(String.format("%s\\total.txt", LOG_DIRECTORY_PATH), false);
+        
         for (int i = 0; i < bots.size(); i++)
             for (int j = i + 1; j < bots.size(); j++) {
                 if (bots.get(i) == null || bots.get(j) == null) continue;
+                
                 System.out.println("\n" + bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i]);
-                results_fw.write(bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i] + "\n");
+                
+                this.results_fw.write(bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i] + "\n");
             }
-        results_fw.close();
+        
+        this.results_fw.close();
     }
 
     /**
@@ -107,7 +115,7 @@ public class SnakesUIMain {
      * @throws InterruptedException Threads handler
      * @throws IOException          FileWriter handler
      */
-    public static void start_round_robin_tournament(ArrayList<Bot> bots) throws InterruptedException, IOException {
+    public void start_round_robin_tournament(ArrayList<Bot> bots) throws InterruptedException, IOException {
         // init game settings
         Coordinate mazeSize = new Coordinate(14, 14);
         Coordinate head0 = new Coordinate(2, 7);
@@ -141,18 +149,21 @@ public class SnakesUIMain {
                 Bot bot0 = bots.get(i);
                 Bot bot1 = bots.get(bots.size() - i - 1);
                 if (bot0 == null || bot1 == null) continue;
+                
                 SnakeGame game = new SnakeGame(mazeSize, head0, tailDirection0, head1, tailDirection1, snakeSize, bot0, bot1);
                 SnakesWindow window = new SnakesWindow(game);
+                
                 Thread t = new Thread(window);
                 t.start();
                 t.join();
 
                 Thread.sleep(1000); // to allow users see the result
-                window.closeWindow();
+                // window.closeWindow();
 
                 float time_taken = (float) (System.currentTimeMillis() - game.startTime) / 1000;
-                results_fw.write(game.name0 + " vs " + game.name1 + " : " + game.gameResult + "");
-                results_fw.write(" (Time taken: " + time_taken + ")\n");
+                this.results_fw.write(game.name0 + " vs " + game.name1 + " : " + game.gameResult + "");
+                this.results_fw.write(" (Time taken: " + time_taken + ")\n");
+                
                 System.out.print(game.name0 + " vs " + game.name1 + " : " + game.gameResult);
                 System.out.println(" (Time taken: " + time_taken + ")");
 
@@ -161,8 +172,8 @@ public class SnakesUIMain {
                 points.set(playerNumber.get(bots.size() - i - 1), points.get(playerNumber.get(bots.size() - i - 1)) + Integer.parseInt(game.gameResult.substring(game.gameResult.length() - 1)));
 
                 // add to the total results table
-                total_results_table[playerNumber.get(i)][playerNumber.get(bots.size() - i - 1)] += Integer.parseInt(game.gameResult.substring(0, 1));
-                total_results_table[playerNumber.get(bots.size() - i - 1)][playerNumber.get(i)] += Integer.parseInt(game.gameResult.substring(game.gameResult.length() - 1));
+                this.total_results_table[playerNumber.get(i)][playerNumber.get(bots.size() - i - 1)] += Integer.parseInt(game.gameResult.substring(0, 1));
+                this.total_results_table[playerNumber.get(bots.size() - i - 1)][playerNumber.get(i)] += Integer.parseInt(game.gameResult.substring(game.gameResult.length() - 1));
 
                 // resets human move
                 SnakeCanvas.reset_move = true;
@@ -172,6 +183,7 @@ public class SnakesUIMain {
             // shuffle players in special way
             Bot buffer_player = bots.get(1);
             int buffer_player_number = playerNumber.get(1);
+            
             for (int i = 2; i < bots.size(); i++) {
                 // swap elements
                 Bot t = buffer_player;
@@ -182,17 +194,20 @@ public class SnakesUIMain {
                 bots.set(i, t);
                 playerNumber.set(i, t_number);
             }
+            
             // set 1-st player by last player(stored in the buffer)
             bots.set(1, buffer_player);
             playerNumber.set(1, buffer_player_number);
         }
 
-        results_fw.write("\n-------------------------------------------\n\n");
+        this.results_fw.write("\n-------------------------------------------\n\n");
         // get and print the results
         for (int i = 0; i < bots.size(); i++) {
             if (bots.get(i) == null) continue;
+            
             System.out.println(bots_names.get(playerNumber.get(i)) + " earned: " + points.get(playerNumber.get(i)).toString());
-            results_fw.write(bots_names.get(playerNumber.get(i)) + " earned: " + points.get(playerNumber.get(i)).toString() + "\n");
+            
+            this.results_fw.write(bots_names.get(playerNumber.get(i)) + " earned: " + points.get(playerNumber.get(i)).toString() + "\n");
         }
     }
 }

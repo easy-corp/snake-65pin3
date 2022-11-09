@@ -7,6 +7,8 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import view.TelaAjuda;
 import view.TelaConfig;
@@ -48,7 +50,7 @@ public class ControladorConfig {
                 try {
                     ControladorJogo controladorJogo = new ControladorJogo();
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    Logger.getLogger(ControladorConfig.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
