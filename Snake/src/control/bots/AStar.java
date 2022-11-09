@@ -25,6 +25,11 @@ public class AStar implements Bot {
 
     @Override
     public Direction chooseDirection(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
+        return modoIngenuo(snake, opponent, mazeSize, apple);
+    }
+
+    //Modo que analisa somente as possibilidades ao redor
+    public Direction modoIngenuo(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
         List<NossaCoordenada> abertas = new ArrayList<>();       //Celulas possiveis de serem visitadas
         List<NossaCoordenada> expandidas = new ArrayList<>();    //Celualas ja visitadas
         NossaCoordenada atual;                                   //A coordenada atual do loop

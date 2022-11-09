@@ -1,1 +1,1 @@
-RandomBot vs. AStar: 0 - 1
+AStar vs. AStar: 1 - 0

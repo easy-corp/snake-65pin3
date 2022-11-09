@@ -36,7 +36,8 @@ public class TrainingDojoMain {
             bots[i] = loader.getBotClass(args[i]);
         }
 
-        Bot trainingBot = bots[0];
+        // Bot trainingBot = bots[0];
+        Bot trainingBot = loader.getBotClass("control.bots.AStar");
 
         TrainingDojoMain dojo = new TrainingDojoMain(bots);
 
