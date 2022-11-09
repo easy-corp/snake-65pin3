@@ -1,0 +1,6 @@
+RandomBot vs AStar : 0 - 1 (Time taken: 4.524)
+
+-------------------------------------------
+
+RandomBot earned: 0
+AStar earned: 1
