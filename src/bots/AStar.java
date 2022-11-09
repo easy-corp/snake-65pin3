@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import snakes.Bot;
-import snakes.Coordinate;
-import snakes.Direction;
-import snakes.Snake;
+import control.snakes.Bot;
+import control.snakes.Coordinate;
+import control.snakes.Direction;
+import control.snakes.Snake;
 
 public class AStar implements Bot {
 

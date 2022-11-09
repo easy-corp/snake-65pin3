@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import snakes.Bot;
-import snakes.Coordinate;
-import snakes.Direction;
-import snakes.Snake;
+import control.snakes.Bot;
+import control.snakes.Coordinate;
+import control.snakes.Direction;
+import control.snakes.Snake;
 
 public class RandomBot implements Bot {
 

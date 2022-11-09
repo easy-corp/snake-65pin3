@@ -1,6 +1,6 @@
 package bots;
 
-import snakes.Coordinate;
+import control.snakes.Coordinate;
 
 public class NossaCoordenada {
     
