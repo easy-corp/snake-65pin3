@@ -6,6 +6,7 @@ public class NossaCoordenada {
     
     private Coordinate coordinate;    //A coordenada
     private Double custo;             //O custo
+    private NossaCoordenada parente;  //O objeto que gerou esse aqui, usado para reconstruir o caminho
 
     public NossaCoordenada(Coordinate coordinate, Double custo) {
         this.coordinate = coordinate;
@@ -18,6 +19,14 @@ public class NossaCoordenada {
 
     public Double getCusto() {
         return this.custo;
-    } 
+    }
+
+    public void setParente(NossaCoordenada parente) {
+        this.parente = parente;
+    }
+
+    public NossaCoordenada getParente() {
+        return this.parente;
+    }
 
 }

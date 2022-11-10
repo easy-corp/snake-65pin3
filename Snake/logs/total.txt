@@ -1,1 +1,1 @@
-RandomBot vs. AStar: 0 - 0
+LoopBot vs. AStar: 1 - 0

@@ -58,8 +58,9 @@ public class SnakesUIMain {
         // bots.add(loader.getBotClass("minmax.minmax"));
         // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
 
-        bots.add(loader.getBotClass("control.bots.RandomBot"));
+        // bots.add(loader.getBotClass("control.bots.RandomBot"));
         // bots.add(loader.getBotClass("control.bots.AStar"));
+        bots.add(loader.getBotClass("control.bots.LoopBot"));
         bots.add(loader.getBotClass("control.bots.AStar"));
 
         //for (String arg : args) {
@@ -122,7 +123,7 @@ public class SnakesUIMain {
         Direction tailDirection0 = Direction.DOWN;
         Coordinate head1 = new Coordinate(11, 6);
         Direction tailDirection1 = Direction.UP;
-        int snakeSize = 3;
+        int snakeSize = 4;
 
         // a number associated to each player in bots ArrayList
         ArrayList<Integer> playerNumber = new ArrayList<>();

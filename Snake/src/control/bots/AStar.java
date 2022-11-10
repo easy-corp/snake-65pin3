@@ -1,6 +1,5 @@
 package control.bots;
 
-import java.rmi.server.ExportException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -59,28 +58,24 @@ public class AStar implements Bot {
                     ) {
                         //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
                         //O custo é determinado pelo custo da célula atual + 1
-                        abertas.add(new NossaCoordenada(proximoMovimento, (atual.getCusto() + (14.0 / 3.5))));
+                        NossaCoordenada novaCoordenada = new NossaCoordenada(proximoMovimento, (atual.getCusto() + (14.0 / 3.5)));
+
+                        abertas.add(novaCoordenada);
+
+                        //Adicionamos a coorenada atual como Parente da nova
+                        //Usaremos isso depois para criar o caminho
+                        novaCoordenada.setParente(atual);
                     }
                 }
             }
         }
 
         //Constroi o caminho inverso, por entre as celulas expandidas
-        List<Coordinate> caminho = constroiCaminho(expandidas, apple);
-        Coordinate movimento = caminho.get(caminho.size() - 2);
-        
-        System.out.println("Eu estou em: " + snake.getHead());
-        System.out.println("A maçã em: " + apple);
-        System.out.println("Caminho: " + caminho.size());
-        // System.out.println("Eu vou para: " + caminho.get(caminho.size() - 2));
-
-        for (Coordinate c : caminho) {
-            System.out.println(c);
-        }
+        List<NossaCoordenada> caminho = constroiCaminho(expandidas);
+        NossaCoordenada movimento = caminho.get(caminho.size() - 1);
 
         //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
-        return getDirection(snake.getHead(), movimento);
-        // return null;
+        return getDirection(snake.getHead(), movimento.getCoordinate());
     }
 
     //Modo que analisa somente as possibilidades ao redor
@@ -188,48 +183,17 @@ public class AStar implements Bot {
 
         return false;
     }
-
-    //Localiza o ponto anterior ao atual
-    //Isso é feito analisando as coordenadas X e Y +1 ou -1
-    //São verificados somente parentes que ainda não estão no caminho
-    public Coordinate verificaParente(List<NossaCoordenada> lista, Coordinate coordenada, List<Coordinate> caminho) {
-        //Possíveis parentes
-        Coordinate x1 = new Coordinate((coordenada.getX() - 1), coordenada.getY());
-        Coordinate x2 = new Coordinate((coordenada.getX() + 1), coordenada.getY());
-        Coordinate y1 = new Coordinate(coordenada.getX(), (coordenada.getY() - 1));
-        Coordinate y2 = new Coordinate(coordenada.getX(), (coordenada.getY() + 1));
-
-        if (contemCoordenada(lista, x1) && !caminho.contains(x1)) {
-            return x1;
-        }
-
-        if (contemCoordenada(lista, x2) && !caminho.contains(x2)) {
-            return x2;
-        }
-
-        if (contemCoordenada(lista, y1) && !caminho.contains(y1)) {
-            return y1;
-        }
-
-        if (contemCoordenada(lista, y2) && !caminho.contains(y2)) {
-            return y2;
-        }
-        
-        return null;
-    }
-
-    //////////////// VERIFICAR CONSTRUÇÃO DO CAMINHO INVERSO ////////////////
     
     //Constroi caminho inverso, da maçã até a cobra
-    public List<Coordinate> constroiCaminho(List<NossaCoordenada> expandidas, Coordinate destino) {
-        List<Coordinate> caminho = new ArrayList<>();
-        Coordinate celula = destino;
+    public List<NossaCoordenada> constroiCaminho(List<NossaCoordenada> expandidas) {
+        List<NossaCoordenada> caminho = new ArrayList<>();
+        NossaCoordenada celula = expandidas.get(expandidas.size() - 1);
 
         //Enquanto houverem parentes para serem verificados
-        while (verificaParente(expandidas, celula, caminho) != null) {
+        while (celula.getParente() != null) {
             caminho.add(celula);
 
-            celula = verificaParente(expandidas, celula, caminho);
+            celula = celula.getParente();
         }
 
         return caminho;
