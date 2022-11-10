@@ -1,5 +1,6 @@
 package control.bots;
 
+import java.rmi.server.ExportException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,13 +26,66 @@ public class AStar implements Bot {
 
     @Override
     public Direction chooseDirection(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
-        return modoIngenuo(snake, opponent, mazeSize, apple);
+        List<NossaCoordenada> abertas = new ArrayList<>();       //Celulas possiveis de serem visitadas
+        List<NossaCoordenada> expandidas = new ArrayList<>();    //Celulas ja visitadas
+        NossaCoordenada atual = null;                            //A coordenada atual do loop
+        
+        //Adiciona a cabeça da cobra(origem) a lista de células abertas
+        //O custo nesse caso é 0
+        abertas.add(new NossaCoordenada(snake.getHead(), 0.0));
+
+        while(abertas.size() > 0) {
+            //Pega a de menor custo dentre as abertas
+            //Tira ela da lista de abertas e adiciona ela a lista de expandidas
+            atual = getMenorCusto(abertas, apple);
+            abertas.remove(atual);
+            expandidas.add(atual);
+
+            //Se chegou ao local da maçã
+            if (atual.getCoordinate().equals(apple)) {
+                break;
+            } else {
+                //Se não chegou ao local desejado
+                //Verifica os movimentos possiveis nos arredores
+                for (Direction d : this.direcoes) {
+                    Coordinate proximoMovimento = atual.getCoordinate().moveTo(d);
+
+                    if (!proximoMovimento.equals(getAntesDaCabeca(snake)) &&  //Não pode mover para tras e se matar
+                        proximoMovimento.inBounds(mazeSize) &&                //Não pode mover fora do tabuleiro
+                        !snake.elements.contains(proximoMovimento) &&         //Não pode mover para cima do seu corpo
+                        !opponent.elements.contains(proximoMovimento) &&      //Não pode mover para cima do inimigo
+                        !contemCoordenada(abertas, proximoMovimento) &&       //Não voltamos a células já abertas
+                        !contemCoordenada(expandidas, proximoMovimento)       //Não voltamos a células já expandidas
+                    ) {
+                        //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
+                        //O custo é determinado pelo custo da célula atual + 1
+                        abertas.add(new NossaCoordenada(proximoMovimento, (atual.getCusto() + (14.0 / 3.5))));
+                    }
+                }
+            }
+        }
+
+        //Constroi o caminho inverso, por entre as celulas expandidas
+        List<Coordinate> caminho = constroiCaminho(expandidas, apple);
+        Coordinate movimento = caminho.get(caminho.size() - 2);
+        
+        System.out.println("Eu estou em: " + snake.getHead());
+        System.out.println("A maçã em: " + apple);
+        System.out.println("Caminho: " + caminho.size());
+        // System.out.println("Eu vou para: " + caminho.get(caminho.size() - 2));
+
+        for (Coordinate c : caminho) {
+            System.out.println(c);
+        }
+
+        //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
+        return getDirection(snake.getHead(), movimento);
+        // return null;
     }
 
     //Modo que analisa somente as possibilidades ao redor
     public Direction modoIngenuo(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
         List<NossaCoordenada> abertas = new ArrayList<>();       //Celulas possiveis de serem visitadas
-        List<NossaCoordenada> expandidas = new ArrayList<>();    //Celualas ja visitadas
         NossaCoordenada atual;                                   //A coordenada atual do loop
         
         //Adiciona a cabeça da cobra(origem) a lista de células abertas
@@ -47,9 +101,7 @@ public class AStar implements Bot {
             if (!proximoMovimento.equals(getAntesDaCabeca(snake)) &&  //Não pode mover para tras e se matar
                 proximoMovimento.inBounds(mazeSize) &&                //Não pode mover fora do tabuleiro
                 !snake.elements.contains(proximoMovimento) &&         //Não pode mover para cima do seu corpo
-                !opponent.elements.contains(proximoMovimento) &&      //Não pode mover para cima do inimigo
-                !abertas.contains(proximoMovimento) &&                //Não voltamos a células já abertas
-                !expandidas.contains(proximoMovimento)                //Não voltamos a células já expandidas
+                !opponent.elements.contains(proximoMovimento)        //Não pode mover para cima do inimigo
             ) {
                 //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
                 //O custo é determinado pelo custo da célula atual + 1
@@ -124,6 +176,63 @@ public class AStar implements Bot {
                 return direcoes.get(3);
             }
         }
+    }
+
+    //Verificada se determinada coordenada esta entre os elementos da lista
+    public boolean contemCoordenada(List<NossaCoordenada> lista, Coordinate coordenada) {
+        for (NossaCoordenada nc : lista) {
+            if (nc.getCoordinate().equals(coordenada)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //Localiza o ponto anterior ao atual
+    //Isso é feito analisando as coordenadas X e Y +1 ou -1
+    //São verificados somente parentes que ainda não estão no caminho
+    public Coordinate verificaParente(List<NossaCoordenada> lista, Coordinate coordenada, List<Coordinate> caminho) {
+        //Possíveis parentes
+        Coordinate x1 = new Coordinate((coordenada.getX() - 1), coordenada.getY());
+        Coordinate x2 = new Coordinate((coordenada.getX() + 1), coordenada.getY());
+        Coordinate y1 = new Coordinate(coordenada.getX(), (coordenada.getY() - 1));
+        Coordinate y2 = new Coordinate(coordenada.getX(), (coordenada.getY() + 1));
+
+        if (contemCoordenada(lista, x1) && !caminho.contains(x1)) {
+            return x1;
+        }
+
+        if (contemCoordenada(lista, x2) && !caminho.contains(x2)) {
+            return x2;
+        }
+
+        if (contemCoordenada(lista, y1) && !caminho.contains(y1)) {
+            return y1;
+        }
+
+        if (contemCoordenada(lista, y2) && !caminho.contains(y2)) {
+            return y2;
+        }
+        
+        return null;
+    }
+
+    //////////////// VERIFICAR CONSTRUÇÃO DO CAMINHO INVERSO ////////////////
+    
+    //Constroi caminho inverso, da maçã até a cobra
+    public List<Coordinate> constroiCaminho(List<NossaCoordenada> expandidas, Coordinate destino) {
+        List<Coordinate> caminho = new ArrayList<>();
+        Coordinate celula = destino;
+
+        //Enquanto houverem parentes para serem verificados
+        while (verificaParente(expandidas, celula, caminho) != null) {
+            caminho.add(celula);
+
+            celula = verificaParente(expandidas, celula, caminho);
+        }
+
+        return caminho;
     }
     
 }

@@ -1,6 +1,0 @@
-AStar vs AStar : 1 - 0 (Time taken: 13.168)
-
--------------------------------------------
-
-AStar earned: 1
-AStar earned: 0
