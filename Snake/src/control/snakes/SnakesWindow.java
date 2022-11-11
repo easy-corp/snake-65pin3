@@ -1,8 +1,8 @@
+
 package control.snakes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
 /**
  * This class is responsible for the game's GUI window
@@ -12,7 +12,6 @@ public class SnakesWindow implements Runnable {
     private SnakeCanvas canvas;
     private SnakeGame game;
     private final int TIME_LIMIT_PER_GAME = 3*60*1000;  // time limit in milliseconds
-    private final int TIME_LIMIT_PER_STEP = 1000; // time limit for one step in mills
 
     private boolean running = false;
 
@@ -63,6 +62,7 @@ public class SnakesWindow implements Runnable {
     public void run() {
         running = true;
         canvas.repaint();
+        
         long startTime = System.currentTimeMillis();
         while(running) {
             long t = System.currentTimeMillis();
@@ -72,6 +72,7 @@ public class SnakesWindow implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            
             canvas.repaint();
 
             long elapsed = System.currentTimeMillis() - t;
@@ -105,5 +106,9 @@ public class SnakesWindow implements Runnable {
         frame.setVisible(false);
         frame.dispose();
     }
-}
 
+    public SnakeCanvas getCanvas() {
+        return this.canvas;
+    }
+
+}

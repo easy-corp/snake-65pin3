@@ -74,6 +74,8 @@ public class AStar implements Bot {
         List<NossaCoordenada> caminho = constroiCaminho(expandidas);
         NossaCoordenada movimento = caminho.get(caminho.size() - 1);
 
+        System.out.println("jogando");
+
         //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
         return getDirection(snake.getHead(), movimento.getCoordinate());
     }

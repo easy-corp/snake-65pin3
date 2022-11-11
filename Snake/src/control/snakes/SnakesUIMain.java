@@ -1,9 +1,14 @@
 package control.snakes;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 
 /**
  * Implements tournament of the snake game with several rounds
@@ -12,29 +17,79 @@ public class SnakesUIMain {
     private static final String LOG_DIRECTORY_PATH = "logs";
     private static FileWriter results_fw;
     private static int[][] total_results_table;
+    private SnakeGame game;
+    private SnakesWindow window;
+    private ArrayList<Bot> bots;
+    private BotLoader loader;
+
+    //Game settings
+    private Coordinate mazeSize = new Coordinate(14, 14);
+    private Coordinate head0 = new Coordinate(2, 7);
+    private Direction tailDirection0 = Direction.DOWN;
+    private Coordinate head1 = new Coordinate(11, 6);
+    private Direction tailDirection1 = Direction.UP;
+    private int snakeSize = 4;
     
-    public void comecarJogo() throws IOException, InterruptedException {
-        //if (args.length < 2) {
-        //    System.err.println("You must provide two classes implementing the Bot interface.");
-        //    System.exit(1);
-        //}
+    //a number associated to each player in bots ArrayList
+    ArrayList<Integer> playerNumber;
 
-        ArrayList<Bot> bots = new ArrayList<>();
-        BotLoader loader = new BotLoader();
+    //points earned by each player
+    ArrayList<Integer> points;
+    ArrayList<String> bots_names;
 
-        // Old code
-        // bots.add(loader.getBotClass("minmax.minmax"));
-        // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
+    public SnakesUIMain() throws IOException, InterruptedException {
+        this.bots = new ArrayList<>();
+        this.loader = new BotLoader();
+        this.playerNumber = new ArrayList<>();
+        this.points = new ArrayList<>();
+        this.bots_names = new ArrayList<>();
 
         // bots.add(loader.getBotClass("control.bots.RandomBot"));
-        bots.add(loader.getBotClass("control.bots.AStar"));
+        bots.add(loader.getBotClass("control.bots.LoopBot"));
         bots.add(loader.getBotClass("control.bots.AStar"));
 
-        //for (String arg : args) {
-        //    bots.add(loader.getBotClass(arg));
-        //}
+        criarTela();
+        acaoTeclas();
 
-        start_tournament_n_times(1, bots);
+        // start_tournament_n_times(1, bots);
+        start_round_robin_tournament(bots);
+    }
+
+    public void acaoTeclas() {
+        this.window.getCanvas().addAcaoTecla(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                
+                if (key == KeyEvent.VK_ENTER) {
+                    try {
+                        start_round_robin_tournament(bots);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                } 
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+
+        });
+    }
+
+    public void criarTela() {
+       Bot bot0 = this.bots.get(0);
+       Bot bot1 = bots.get(1);
+
+       this.game = new SnakeGame(this.mazeSize, this.head0, this.tailDirection0, this.head1, this.tailDirection1, this.snakeSize, bot0, bot1);
+       this.window = new SnakesWindow(game);
     }
 
     /**
@@ -45,30 +100,30 @@ public class SnakesUIMain {
      * @throws IOException          FileWriter handler
      */
     
-    public static void main(String[] args) throws IOException, InterruptedException {
-        //if (args.length < 2) {
-        //    System.err.println("You must provide two classes implementing the Bot interface.");
-        //    System.exit(1);
-        //}
+    // public static void main(String[] args) throws IOException, InterruptedException {
+    //     //if (args.length < 2) {
+    //     //    System.err.println("You must provide two classes implementing the Bot interface.");
+    //     //    System.exit(1);
+    //     //}
 
-        ArrayList<Bot> bots = new ArrayList<>();
-        BotLoader loader = new BotLoader();
+    //     ArrayList<Bot> bots = new ArrayList<>();
+    //     BotLoader loader = new BotLoader();
 
-        // Old code
-        // bots.add(loader.getBotClass("minmax.minmax"));
-        // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
+    //     // Old code
+    //     // bots.add(loader.getBotClass("minmax.minmax"));
+    //     // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
 
-        // bots.add(loader.getBotClass("control.bots.RandomBot"));
-        // bots.add(loader.getBotClass("control.bots.AStar"));
-        bots.add(loader.getBotClass("control.bots.LoopBot"));
-        bots.add(loader.getBotClass("control.bots.AStar"));
+    //     // bots.add(loader.getBotClass("control.bots.RandomBot"));
+    //     // bots.add(loader.getBotClass("control.bots.AStar"));
+    //     bots.add(loader.getBotClass("control.bots.LoopBot"));
+    //     bots.add(loader.getBotClass("control.bots.AStar"));
 
-        //for (String arg : args) {
-        //    bots.add(loader.getBotClass(arg));
-        //}
+    //     //for (String arg : args) {
+    //     //    bots.add(loader.getBotClass(arg));
+    //     //}
 
-        start_tournament_n_times(1, bots);
-    }
+    //     start_tournament_n_times(1, bots);
+    // }
 
     /**
      * Launch several rounds of snake game between bots
@@ -78,36 +133,36 @@ public class SnakesUIMain {
      * @throws IOException          FileWriter handler
      * @throws InterruptedException Threads handler
      */
-    public static void start_tournament_n_times(int n, ArrayList<Bot> bots) throws IOException, InterruptedException {
-        total_results_table = new int[bots.size() + 1][bots.size() + 1];
-        File dir = new File(LOG_DIRECTORY_PATH);
+    // public void start_tournament_n_times(int n, ArrayList<Bot> bots) throws IOException, InterruptedException {
+    //     total_results_table = new int[bots.size() + 1][bots.size() + 1];
+    //     File dir = new File(LOG_DIRECTORY_PATH);
         
-        if (!dir.exists() && !dir.mkdirs()) {
-            System.err.println("Cannot create log directory.");
-        }
+    //     if (!dir.exists() && !dir.mkdirs()) {
+    //         System.err.println("Cannot create log directory.");
+    //     }
         
-        for (int i = 0; i < n; i++) {
-            System.out.println("\nTournament iteration number " + i + "\n");
-            results_fw = new FileWriter(String.format("%s\\iteration_%d.txt", LOG_DIRECTORY_PATH, i), false);
+    //     for (int i = 0; i < n; i++) {
+    //         System.out.println("\nTournament iteration number " + i + "\n");
+    //         results_fw = new FileWriter(String.format("%s\\iteration_%d.txt", LOG_DIRECTORY_PATH, i), false);
             
-            start_round_robin_tournament(bots);
+    //         this.start_round_robin_tournament(bots);
             
-            results_fw.close();
-        }
+    //         results_fw.close();
+    //     }
 
-        results_fw = new FileWriter(String.format("%s\\total.txt", LOG_DIRECTORY_PATH), false);
+    //     results_fw = new FileWriter(String.format("%s\\total.txt", LOG_DIRECTORY_PATH), false);
         
-        for (int i = 0; i < bots.size(); i++)
-            for (int j = i + 1; j < bots.size(); j++) {
-                if (bots.get(i) == null || bots.get(j) == null) continue;
+    //     for (int i = 0; i < bots.size(); i++)
+    //         for (int j = i + 1; j < bots.size(); j++) {
+    //             if (bots.get(i) == null || bots.get(j) == null) continue;
                 
-                System.out.println("\n" + bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i]);
+    //             System.out.println("\n" + bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i]);
                 
-                results_fw.write(bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i] + "\n");
-            }
+    //             results_fw.write(bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i] + "\n");
+    //         }
         
-        results_fw.close();
-    }
+    //     results_fw.close();
+    // }
 
     /**
      * Start tournament between bots
@@ -116,32 +171,19 @@ public class SnakesUIMain {
      * @throws InterruptedException Threads handler
      * @throws IOException          FileWriter handler
      */
-    public static void start_round_robin_tournament(ArrayList<Bot> bots) throws InterruptedException, IOException {
-        // init game settings
-        Coordinate mazeSize = new Coordinate(14, 14);
-        Coordinate head0 = new Coordinate(2, 7);
-        Direction tailDirection0 = Direction.DOWN;
-        Coordinate head1 = new Coordinate(11, 6);
-        Direction tailDirection1 = Direction.UP;
-        int snakeSize = 4;
+    public void start_round_robin_tournament(ArrayList<Bot> bots) throws InterruptedException, IOException {
+        // // If there are an odd number of players - add the dummy player
+        // if (bots.size() % 2 == 1)
+        //     bots.add(null);
 
-        // a number associated to each player in bots ArrayList
-        ArrayList<Integer> playerNumber = new ArrayList<>();
+        // for (int i = 0; i < bots.size(); i++) {
+        //     playerNumber.add(i);
+        //     points.add(0);
+        //     if (bots.get(i) != null)
+        //         bots_names.add(bots.get(i).getClass().getSimpleName());
+        // }
 
-        // points earned by each player
-        ArrayList<Integer> points = new ArrayList<>();
-        ArrayList<String> bots_names = new ArrayList<>();
-
-        // If there are an odd number of players - add the dummy player
-        if (bots.size() % 2 == 1)
-            bots.add(null);
-
-        for (int i = 0; i < bots.size(); i++) {
-            playerNumber.add(i);
-            points.add(0);
-            if (bots.get(i) != null)
-                bots_names.add(bots.get(i).getClass().getSimpleName());
-        }
+        System.out.println("Começou");
 
         for (int k = 0; k < bots.size() - 1; k++) {
             // play N / 2 rounds
@@ -151,18 +193,19 @@ public class SnakesUIMain {
                 Bot bot1 = bots.get(bots.size() - i - 1);
                 if (bot0 == null || bot1 == null) continue;
                 
-                SnakeGame game = new SnakeGame(mazeSize, head0, tailDirection0, head1, tailDirection1, snakeSize, bot0, bot1);
-                SnakesWindow window = new SnakesWindow(game);
-                
-                Thread t = new Thread(window);
+                Thread t = new Thread(window);                
+
                 t.start();
                 t.join();
 
                 Thread.sleep(1000); // to allow users see the result
+                
                 // window.closeWindow();
 
                 float time_taken = (float) (System.currentTimeMillis() - game.startTime) / 1000;
+                
                 results_fw.write(game.name0 + " vs " + game.name1 + " : " + game.gameResult + "");
+
                 results_fw.write(" (Time taken: " + time_taken + ")\n");
                 
                 System.out.print(game.name0 + " vs " + game.name1 + " : " + game.gameResult);

@@ -1,6 +1,0 @@
-LoopBot vs AStar : 1 - 0 (Time taken: 100.077)
-
--------------------------------------------
-
-LoopBot earned: 1
-AStar earned: 0

@@ -34,8 +34,6 @@ public class SnakeCanvas extends Canvas {
     private static final int font_size_score = 32;  // used to be 28
     private static final int font_size_names = 26;  // used to be 15
 
-
-
     /**
      * Constructs snake canvas
      *
@@ -44,46 +42,54 @@ public class SnakeCanvas extends Canvas {
     public SnakeCanvas(SnakeGame game) {
         this.game = game;
         java.net.URL imageURL = getClass().getResource("images/apple.png");
+        
         if (imageURL != null) {
             Image appleImage = new ImageIcon(imageURL).getImage().getScaledInstance(CELL_SIZE - 10, CELL_SIZE - 10, Image.SCALE_SMOOTH);
             apple = new ImageIcon(appleImage);
         }
+
         renderSize = new Dimension((game.mazeSize.x + 2) * CELL_SIZE, (game.mazeSize.y + 2) * CELL_SIZE);
-        this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
+        
+        // this.addKeyListener(new KeyListener() {
+        //     @Override
+        //     public void keyTyped(KeyEvent e) {
 
-            }
+        //     }
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_LEFT) {
-                    move_queue.add(Direction.LEFT);
-                    human_move = Direction.LEFT;
-                }
+        //     @Override
+        //     public void keyPressed(KeyEvent e) {
+        //         int key = e.getKeyCode();
+        //         if (key == KeyEvent.VK_LEFT) {
+        //             move_queue.add(Direction.LEFT);
+        //             human_move = Direction.LEFT;
+        //             System.out.println("apertei para esquerda");
+        //         }
 
-                if (key == KeyEvent.VK_RIGHT) {
-                    move_queue.add(Direction.RIGHT);
-                    human_move = Direction.RIGHT;
-                }
+        //         if (key == KeyEvent.VK_RIGHT) {
+        //             move_queue.add(Direction.RIGHT);
+        //             human_move = Direction.RIGHT;
+        //         }
 
-                if (key == KeyEvent.VK_UP) {
-                    move_queue.add(Direction.DOWN);
-                    human_move = Direction.DOWN;
-                }
+        //         if (key == KeyEvent.VK_UP) {
+        //             move_queue.add(Direction.DOWN);
+        //             human_move = Direction.DOWN;
+        //         }
 
-                if (key == KeyEvent.VK_DOWN) {
-                    move_queue.add(Direction.UP);
-                    human_move = Direction.UP;
-                }
-            }
+        //         if (key == KeyEvent.VK_DOWN) {
+        //             move_queue.add(Direction.UP);
+        //             human_move = Direction.UP;
+        //         }
+        //     }
 
-            @Override
-            public void keyReleased(KeyEvent e) {
+        //     @Override
+        //     public void keyReleased(KeyEvent e) {
 
-            }
-        });
+        //     }
+        // });
+    }
+    
+    public void addAcaoTecla(KeyListener acao) {
+        this.addKeyListener(acao);
     }
 
     /**
@@ -243,4 +249,5 @@ public class SnakeCanvas extends Canvas {
     public void fillRect(Graphics2D g, int x, int y, int width, int height) {
         g.fillRect(x - width, y, width, height);
     }
+
 }
