@@ -3,13 +3,14 @@ package control.snakes;
 
 import javax.swing.*;
 import java.awt.*;
+import view.PaneJogo;
 
 /**
  * This class is responsible for the game's GUI window
  */
 public class SnakesWindow implements Runnable {
     private JFrame frame;
-    private SnakeCanvas canvas;
+    private PaneJogo canvas;
     private SnakeGame game;
     private final int TIME_LIMIT_PER_GAME = 3*60*1000;  // time limit in milliseconds
 
@@ -22,7 +23,7 @@ public class SnakesWindow implements Runnable {
     public SnakesWindow(SnakeGame game) {
         frame = new JFrame("Snake | Game");
         this.game = game;
-        canvas = new SnakeCanvas(game);
+        canvas = new PaneJogo(game);
         JPanel panel = (JPanel) frame.getContentPane();
         panel.setPreferredSize(canvas.renderSize);
         panel.setLayout(new GridLayout());
@@ -107,7 +108,7 @@ public class SnakesWindow implements Runnable {
         frame.dispose();
     }
 
-    public SnakeCanvas getCanvas() {
+    public PaneJogo getCanvas() {
         return this.canvas;
     }
 

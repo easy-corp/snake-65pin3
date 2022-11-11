@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 
 /**
  * Implements main game flow
@@ -117,9 +118,7 @@ public class SnakeGame {
 
         this.bot0_runner = new SnakesRunner(bot0, snake0, snake1, mazeSize, appleCoordinate);
         this.bot1_runner = new SnakesRunner(bot1, snake1, snake0, mazeSize, appleCoordinate);
-
     }
-
 
     /**
      * Converts game to string representation

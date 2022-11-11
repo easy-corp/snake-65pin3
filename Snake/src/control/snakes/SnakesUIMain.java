@@ -2,23 +2,21 @@ package control.snakes;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.SpringLayout;
-import javax.swing.SwingUtilities;
+import control.Jogo;
+import view.TelaJogo;
 
 /**
  * Implements tournament of the snake game with several rounds
  */
 public class SnakesUIMain {
-    private static final String LOG_DIRECTORY_PATH = "logs";
     private static FileWriter results_fw;
     private static int[][] total_results_table;
     private SnakeGame game;
-    private SnakesWindow window;
+    private TelaJogo window;
     private ArrayList<Bot> bots;
     private BotLoader loader;
 
@@ -51,12 +49,11 @@ public class SnakesUIMain {
         criarTela();
         acaoTeclas();
 
-        // start_tournament_n_times(1, bots);
-        start_round_robin_tournament(bots);
+        start_round_robin_tournament(bots); 
     }
 
     public void acaoTeclas() {
-        this.window.getCanvas().addAcaoTecla(new KeyListener() {
+        this.window.getCanvas().addAcaoTeclas(new KeyListener() {
 
             @Override
             public void keyTyped(KeyEvent e) {
@@ -89,80 +86,8 @@ public class SnakesUIMain {
        Bot bot1 = bots.get(1);
 
        this.game = new SnakeGame(this.mazeSize, this.head0, this.tailDirection0, this.head1, this.tailDirection1, this.snakeSize, bot0, bot1);
-       this.window = new SnakesWindow(game);
+       this.window = new TelaJogo(game);
     }
-
-    /**
-     * UI Entry point
-     *
-     * @param args Two classes implementing the Bot interface
-     * @throws InterruptedException Threads handler
-     * @throws IOException          FileWriter handler
-     */
-    
-    // public static void main(String[] args) throws IOException, InterruptedException {
-    //     //if (args.length < 2) {
-    //     //    System.err.println("You must provide two classes implementing the Bot interface.");
-    //     //    System.exit(1);
-    //     //}
-
-    //     ArrayList<Bot> bots = new ArrayList<>();
-    //     BotLoader loader = new BotLoader();
-
-    //     // Old code
-    //     // bots.add(loader.getBotClass("minmax.minmax"));
-    //     // bots.add(loader.getBotClass("finalBot.AdderBoaCobra"));
-
-    //     // bots.add(loader.getBotClass("control.bots.RandomBot"));
-    //     // bots.add(loader.getBotClass("control.bots.AStar"));
-    //     bots.add(loader.getBotClass("control.bots.LoopBot"));
-    //     bots.add(loader.getBotClass("control.bots.AStar"));
-
-    //     //for (String arg : args) {
-    //     //    bots.add(loader.getBotClass(arg));
-    //     //}
-
-    //     start_tournament_n_times(1, bots);
-    // }
-
-    /**
-     * Launch several rounds of snake game between bots
-     *
-     * @param n    Number of rounds
-     * @param bots Competitive bots
-     * @throws IOException          FileWriter handler
-     * @throws InterruptedException Threads handler
-     */
-    // public void start_tournament_n_times(int n, ArrayList<Bot> bots) throws IOException, InterruptedException {
-    //     total_results_table = new int[bots.size() + 1][bots.size() + 1];
-    //     File dir = new File(LOG_DIRECTORY_PATH);
-        
-    //     if (!dir.exists() && !dir.mkdirs()) {
-    //         System.err.println("Cannot create log directory.");
-    //     }
-        
-    //     for (int i = 0; i < n; i++) {
-    //         System.out.println("\nTournament iteration number " + i + "\n");
-    //         results_fw = new FileWriter(String.format("%s\\iteration_%d.txt", LOG_DIRECTORY_PATH, i), false);
-            
-    //         this.start_round_robin_tournament(bots);
-            
-    //         results_fw.close();
-    //     }
-
-    //     results_fw = new FileWriter(String.format("%s\\total.txt", LOG_DIRECTORY_PATH), false);
-        
-    //     for (int i = 0; i < bots.size(); i++)
-    //         for (int j = i + 1; j < bots.size(); j++) {
-    //             if (bots.get(i) == null || bots.get(j) == null) continue;
-                
-    //             System.out.println("\n" + bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i]);
-                
-    //             results_fw.write(bots.get(i).getClass().getSimpleName() + " vs. " + bots.get(j).getClass().getSimpleName() + ": " + total_results_table[i][j] + " - " + total_results_table[j][i] + "\n");
-    //         }
-        
-    //     results_fw.close();
-    // }
 
     /**
      * Start tournament between bots
@@ -172,19 +97,6 @@ public class SnakesUIMain {
      * @throws IOException          FileWriter handler
      */
     public void start_round_robin_tournament(ArrayList<Bot> bots) throws InterruptedException, IOException {
-        // // If there are an odd number of players - add the dummy player
-        // if (bots.size() % 2 == 1)
-        //     bots.add(null);
-
-        // for (int i = 0; i < bots.size(); i++) {
-        //     playerNumber.add(i);
-        //     points.add(0);
-        //     if (bots.get(i) != null)
-        //         bots_names.add(bots.get(i).getClass().getSimpleName());
-        // }
-
-        System.out.println("Começou");
-
         for (int k = 0; k < bots.size() - 1; k++) {
             // play N / 2 rounds
             for (int i = 0; i < bots.size() / 2; i++) {
@@ -193,13 +105,12 @@ public class SnakesUIMain {
                 Bot bot1 = bots.get(bots.size() - i - 1);
                 if (bot0 == null || bot1 == null) continue;
                 
-                Thread t = new Thread(window);                
+                Thread t = new Thread(new Jogo(this.game, this.window.getCanvas()));
 
                 t.start();
                 t.join();
 
-                Thread.sleep(1000); // to allow users see the result
-                
+                // Thread.sleep(1000); // to allow users see the result
                 // window.closeWindow();
 
                 float time_taken = (float) (System.currentTimeMillis() - game.startTime) / 1000;

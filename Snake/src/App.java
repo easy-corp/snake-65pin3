@@ -18,6 +18,6 @@ public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
         // ControladorInicio controladorInicio = new ControladorInicio();
 
-        ControladorJogo controladorJogo = new ControladorJogo();
+       ControladorJogo controladorJogo = new ControladorJogo();
     } 
 }
