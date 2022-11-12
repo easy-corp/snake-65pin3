@@ -16,8 +16,8 @@ import control.ControladorJogo;
 public class App {
  
     public static void main(String[] args) throws IOException, InterruptedException {
-        // ControladorInicio controladorInicio = new ControladorInicio();
-
-       ControladorJogo controladorJogo = new ControladorJogo();
+        ControladorInicio controladorInicio = new ControladorInicio();
+        
+//       ControladorJogo controladorJogo = new ControladorJogo();;
     } 
 }

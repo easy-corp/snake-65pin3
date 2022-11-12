@@ -4,10 +4,16 @@
  */
 package view;
 
+import java.nio.BufferOverflowException;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+
 import control.snakes.SnakeGame;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -23,19 +29,20 @@ public class TelaJogo extends javax.swing.JFrame {
     public TelaJogo(SnakeGame game) {
         initComponents();
         
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();;;
         int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
         this.setLocation(x, y);
         
         this.game = game;
+
         canvas = new PaneJogo(game);
-        paneJogo.setPreferredSize(canvas.renderSize);
-        paneJogo.setLayout(new GridLayout());
+//        this.setPreferredSize(canvas.renderSize);
+        this.setLayout(new GridLayout());
 
         canvas.setIgnoreRepaint(false);
-
-        paneJogo.add(canvas);
+        
+        add(canvas);        
 
         this.pack();
         this.setResizable(false);
@@ -54,33 +61,18 @@ public class TelaJogo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        paneJogo = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Snake | Jogo");
-
-        paneJogo.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout paneJogoLayout = new javax.swing.GroupLayout(paneJogo);
-        paneJogo.setLayout(paneJogoLayout);
-        paneJogoLayout.setHorizontalGroup(
-            paneJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-        );
-        paneJogoLayout.setVerticalGroup(
-            paneJogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneJogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
 
         pack();
@@ -88,10 +80,14 @@ public class TelaJogo extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel paneJogo;
     // End of variables declaration//GEN-END:variables
     
     public PaneJogo getCanvas() {
         return this.canvas;
     }
+    
+    public void atualizarTela() {    
+        canvas.updateUI();       
+    }
+
 }

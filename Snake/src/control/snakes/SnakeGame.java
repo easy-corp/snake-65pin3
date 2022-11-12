@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.concurrent.Semaphore;
 
 /**
  * Implements main game flow

@@ -6,7 +6,6 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +42,7 @@ public class ControladorConfig {
                 telaAjuda.setVisible(true);
             }
         });
-        
+
         this.telaConfig.addAcaoBtnJogar(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

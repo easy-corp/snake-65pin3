@@ -32,8 +32,12 @@ public class SnakesRunner implements Runnable {
      * Execute chooseDirection method of the current bot and save chosen option in a field chosen_direction
      * This method is running in a separate thread
      */
-    @Override
-    public void run() {
-        chosen_direction = bot.chooseDirection(snake, opponent, mazeSize, apple);
-    }
+     @Override
+     public void run() {
+         chosen_direction = bot.chooseDirection(snake, opponent, mazeSize, apple);
+     }
+
+//    public void jogar() {
+//        chosen_direction = bot.chooseDirection(snake, opponent, mazeSize, apple);
+//    }
 }

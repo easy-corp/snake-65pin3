@@ -48,9 +48,6 @@ public interface Bot {
     default void save() {
     }
 
-    default void update(TrainingDojoMain.playedGame[] results) {
-    }
-
     default void setTrainingMode(boolean trainingMode){
     }
 }

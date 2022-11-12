@@ -74,40 +74,8 @@ public class AStar implements Bot {
         List<NossaCoordenada> caminho = constroiCaminho(expandidas);
         NossaCoordenada movimento = caminho.get(caminho.size() - 1);
 
-        System.out.println("jogando");
-
         //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
         return getDirection(snake.getHead(), movimento.getCoordinate());
-    }
-
-    //Modo que analisa somente as possibilidades ao redor
-    public Direction modoIngenuo(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
-        List<NossaCoordenada> abertas = new ArrayList<>();       //Celulas possiveis de serem visitadas
-        NossaCoordenada atual;                                   //A coordenada atual do loop
-        
-        //Adiciona a cabeça da cobra(origem) a lista de células abertas
-        //O custo nesse caso é 0
-        abertas.add(new NossaCoordenada(snake.getHead(), 0.0));
-        atual = getMenorCusto(abertas, apple);
-        
-        //Se não chegou ao local desejado
-        //Verifica os movimentos possiveis nos arredores
-        for (Direction d : this.direcoes) {
-            Coordinate proximoMovimento = snake.getHead().moveTo(d);
-
-            if (!proximoMovimento.equals(getAntesDaCabeca(snake)) &&  //Não pode mover para tras e se matar
-                proximoMovimento.inBounds(mazeSize) &&                //Não pode mover fora do tabuleiro
-                !snake.elements.contains(proximoMovimento) &&         //Não pode mover para cima do seu corpo
-                !opponent.elements.contains(proximoMovimento)        //Não pode mover para cima do inimigo
-            ) {
-                //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
-                //O custo é determinado pelo custo da célula atual + 1
-                abertas.add(new NossaCoordenada(proximoMovimento, (atual.getCusto() + (14.0 / 3.5))));
-            }
-        }
-
-        //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
-        return getDirection(snake.getHead(), getMenorCusto(abertas, apple).getCoordinate());
     }
 
     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal

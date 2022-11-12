@@ -31,7 +31,7 @@ public class ControladorInicio {
                 ControladorConfig controladorConfig = new ControladorConfig();
             }
         });
-        
+
         this.telaInicial.addAcaoBtnSobre(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
