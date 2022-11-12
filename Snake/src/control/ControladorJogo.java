@@ -22,19 +22,18 @@ public class ControladorJogo {
     private ArrayList<Bot> bots;
     private BotLoader loader;
     
-    public ControladorJogo() throws IOException, InterruptedException {
-        IniciarJogo();
+    public ControladorJogo(String bot1, String bot2, int botSize, double timeMov, int timeLimitGame) throws IOException, InterruptedException {
+        IniciarJogo(bot1, bot2, botSize, timeMov, timeLimitGame);
     }
 
-    public void IniciarJogo() throws IOException, InterruptedException {
+    public void IniciarJogo(String bot1, String bot2, int botSize, double timeMov, int timeLimitGame) throws IOException, InterruptedException {
         bots = new ArrayList<>();
         loader = new BotLoader();
 
-        bots.add(loader.getBotClass("control.bots.RandomBot"));
-        // bots.add(loader.getBotClass("bots.AStar"));
-        bots.add(loader.getBotClass("control.bots.AStar"));
+        bots.add(loader.getBotClass(bot1));
+        bots.add(loader.getBotClass(bot2));
 
-        this.snakesMain = new SnakesUIMain();
+        this.snakesMain = new SnakesUIMain(bots, botSize, timeMov, timeLimitGame);
     }
     
 }

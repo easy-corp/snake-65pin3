@@ -2,7 +2,9 @@ package control.snakes;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,7 +13,6 @@ import java.util.Random;
  */
 public class SnakeGame {
     private final String LOG_FILE = "log.txt";
-    private final long TIMEOUT_THRESHOLD = 1;// timeout threshold for taking a decision in seconds
     public final Snake snake0, snake1;
     public final Coordinate mazeSize;
     private final Bot bot0, bot1;
@@ -24,6 +25,7 @@ public class SnakeGame {
     private int snakeSize;
     public String name0, name1;
     public long startTime;
+    private double timeMov; // timeout for taking a decision in seconds
 
     private SnakesRunner bot0_runner, bot1_runner;
 
@@ -49,9 +51,10 @@ public class SnakeGame {
      * @param size     initial length of snakes
      * @param bot0     first smart snake bot
      * @param bot1     second smart snake bot
+     * @param timeMov  time limit for each moviment
      */
     public SnakeGame(Coordinate mazeSize, Coordinate head0, Direction tailDir0, Coordinate head1, Direction tailDir1, int size,
-                     Bot bot0, Bot bot1) {
+                     Bot bot0, Bot bot1, double timeMov) {
         snakeSize = size;
         this.startTime = System.currentTimeMillis();
         this.mazeSize = mazeSize;
@@ -61,6 +64,7 @@ public class SnakeGame {
         this.bot1 = bot1;
         this.name0 = bot0.getClass().getSimpleName();
         this.name1 = bot1.getClass().getSimpleName();
+        this.timeMov = timeMov;
 
         /*
         START ADDED BY SERPENTINE
@@ -218,7 +222,7 @@ public class SnakeGame {
             Thread bot0_thread = new Thread(bot0_runner);
 
             bot0_thread.start();
-            bot0_thread.join(TIMEOUT_THRESHOLD * 1000);
+            bot0_thread.join((long) (timeMov * 1000));
             boolean s0timeout = false;
             if (bot0_thread.isAlive()) {
                 bot0_thread.interrupt();
@@ -231,9 +235,9 @@ public class SnakeGame {
             // the second bot takes a decision of next move
             bot1_runner.apple = appleCoordinate;
             Thread bot1_thread = new Thread(bot1_runner);
-
+            
             bot1_thread.start();
-            bot1_thread.join(TIMEOUT_THRESHOLD * 1000);
+            bot1_thread.join((long) (timeMov * 1000));
 
             boolean s1timeout = false;
             if (bot1_thread.isAlive()) {
@@ -386,7 +390,15 @@ public class SnakeGame {
         return cc;
     }
 
-    /*
-    END ADDED BY SERPENTINE
-     */
+    public List<String> getGameResult() {
+        List<String> resultados = new ArrayList<>();
+
+        resultados.add(gameResult); //Resultado geral
+        resultados.add(gameResult.substring(0, gameResult.indexOf("-") -1)); //Resultado bot 1 
+        resultados.add(gameResult.substring(gameResult.indexOf("-") + 2, gameResult.length())); //Resultado bot 2
+        resultados.add(String.valueOf((System.currentTimeMillis() - this.startTime) / 1000)); //Tempo do jogo
+
+        return resultados;
+    }
+    
 }

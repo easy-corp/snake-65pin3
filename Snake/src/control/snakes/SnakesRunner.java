@@ -36,8 +36,5 @@ public class SnakesRunner implements Runnable {
      public void run() {
          chosen_direction = bot.chooseDirection(snake, opponent, mazeSize, apple);
      }
-
-//    public void jogar() {
-//        chosen_direction = bot.chooseDirection(snake, opponent, mazeSize, apple);
-//    }
+     
 }

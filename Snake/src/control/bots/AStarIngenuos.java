@@ -16,13 +16,13 @@ import java.util.List;
  *
  * @author Luis
  */
-public class AStarIngenuo implements Bot {
+public class AStarIngenuos implements Bot {
 
     private List<Direction> direcoes;
 
     //Realiza um movimento segundo o algoritmo A*
     //Modo que analisa somente as possibilidades ao redor
-    public AStarIngenuo() {
+    public AStarIngenuos() {
         //Cria lista de movimentos
         this.direcoes = new ArrayList<>();
         direcoes.add(Direction.UP);

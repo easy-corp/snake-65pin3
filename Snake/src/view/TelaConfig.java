@@ -43,6 +43,12 @@ public class TelaConfig extends javax.swing.JFrame {
         cbAlg1 = new javax.swing.JComboBox<>();
         btnAjuda = new javax.swing.JButton();
         btnJogar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        spnSizeBot = new javax.swing.JSpinner();
+        spnTimeMov = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        spnTimeLimitGame = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Snake | Configurações");
@@ -67,9 +73,9 @@ public class TelaConfig extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 209, 30));
-        jLabel3.setText("Algoritmo 1");
+        jLabel3.setText("Tamanho Inicial dos Bots");
         paneConfig.add(jLabel3);
-        jLabel3.setBounds(60, 60, 90, 22);
+        jLabel3.setBounds(30, 200, 180, 22);
 
         cbAlg2.setBackground(new java.awt.Color(255, 255, 255));
         cbAlg2.setForeground(new java.awt.Color(0, 209, 30));
@@ -102,6 +108,41 @@ public class TelaConfig extends javax.swing.JFrame {
         btnJogar.setText("Jogar");
         paneConfig.add(btnJogar);
         btnJogar.setBounds(270, 390, 72, 22);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 209, 30));
+        jLabel4.setText("Algoritmo 1");
+        paneConfig.add(jLabel4);
+        jLabel4.setBounds(60, 60, 90, 22);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 209, 30));
+        jLabel5.setText("Tempo Limite para Movimento");
+        paneConfig.add(jLabel5);
+        jLabel5.setBounds(30, 240, 220, 22);
+
+        spnSizeBot.setModel(new javax.swing.SpinnerNumberModel(4, 1, 100, 1));
+        spnSizeBot.setMaximumSize(new java.awt.Dimension(68, 22));
+        spnSizeBot.setMinimumSize(new java.awt.Dimension(68, 22));
+        spnSizeBot.setPreferredSize(new java.awt.Dimension(68, 22));
+        paneConfig.add(spnSizeBot);
+        spnSizeBot.setBounds(260, 200, 70, 22);
+
+        spnTimeMov.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.001d, 100.0d, 0.5d));
+        spnTimeMov.setMinimumSize(new java.awt.Dimension(67, 22));
+        spnTimeMov.setPreferredSize(new java.awt.Dimension(67, 22));
+        paneConfig.add(spnTimeMov);
+        spnTimeMov.setBounds(260, 240, 70, 22);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 209, 30));
+        jLabel6.setText("Tempo Limite do Jogo");
+        paneConfig.add(jLabel6);
+        jLabel6.setBounds(30, 280, 160, 22);
+
+        spnTimeLimitGame.setModel(new javax.swing.SpinnerNumberModel(120, 1, 600, 30));
+        paneConfig.add(spnTimeLimitGame);
+        spnTimeLimitGame.setBounds(260, 280, 70, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,7 +178,13 @@ public class TelaConfig extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel paneConfig;
+    private javax.swing.JSpinner spnSizeBot;
+    private javax.swing.JSpinner spnTimeLimitGame;
+    private javax.swing.JSpinner spnTimeMov;
     // End of variables declaration//GEN-END:variables
 
     public void addItemCbAlg(String item) {
@@ -151,6 +198,26 @@ public class TelaConfig extends javax.swing.JFrame {
     
     public void addAcaoBtnAjuda(ActionListener acao) {
         this.btnAjuda.addActionListener(acao);
+    }
+    
+    public String getSelecionadoCbAlg1() {
+        return this.cbAlg1.getSelectedItem().toString();
+    }
+    
+    public String getSelecionadoCbAlg2() {
+        return this.cbAlg2.getSelectedItem().toString();
+    }
+    
+    public int getSpnSizeBot() {
+        return Integer.valueOf(this.spnSizeBot.getValue().toString());
+    }
+    
+    public double getSpnTimeMov() {
+        return Double.valueOf(this.spnTimeMov.getValue().toString());
+    }
+    
+    public int getSpnTimeLimiteGame() {
+        return Integer.valueOf(this.spnTimeLimitGame.getValue().toString());
     }
     
 }

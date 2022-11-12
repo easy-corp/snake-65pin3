@@ -6,7 +6,6 @@ package view;
 
 import control.snakes.Coordinate;
 import control.snakes.Direction;
-import control.snakes.Snake;
 import control.snakes.SnakeGame;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +13,6 @@ import java.awt.Image;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
@@ -35,7 +33,7 @@ public class PaneJogo extends javax.swing.JPanel {
     private static final Color bodyColor0 = new Color(92, 192, 255);
     private static final Color bodyColor1 = new Color(255, 255, 255);
     private static final Color backgroundColor = new Color(0, 0, 0);
-    private static final Color borderColor = new Color(22, 50, 76);
+    private static final Color borderColor = new Color(0, 209, 30);
     private static final Color appleColor = Color.red;
     private static ImageIcon apple;
     public static Boolean reset_move = true;
@@ -131,22 +129,22 @@ public class PaneJogo extends javax.swing.JPanel {
 
         //Print the score on score board
         g.setFont(new Font("Comic Sans MS", Font.PLAIN, font_size_score));
-        g.setColor(new Color(228, 255, 224));
+        g.setColor(new Color(0, 209, 30));
         // commented out by Serpentine
         //g.drawString(game.gameResult, renderSize.width / 2 - getFontMetrics(g.getFont()).stringWidth(game.gameResult) / 2, renderSize.height - 10); //game results
 
         //Print snakes symbol on score board
         g.setColor(new Color(92, 192, 255)); //outer
-        g.fillRect(renderSize.width / 2 - 3 * CELL_SIZE + 14, renderSize.height - CELL_SIZE + 11, CELL_SIZE - 18, CELL_SIZE - 18);
+        g.fillRect(renderSize.width / 2 - 4 * CELL_SIZE + 14, renderSize.height - CELL_SIZE + 11, CELL_SIZE - 18, CELL_SIZE - 18);
         g.setColor(new Color(92, 192, 255)); //inner
-        g.fillRect(renderSize.width / 2 - 3 * CELL_SIZE + 18, renderSize.height - CELL_SIZE + 15, CELL_SIZE - 26, CELL_SIZE - 26);
+        g.fillRect(renderSize.width / 2 - 4 * CELL_SIZE + 18, renderSize.height - CELL_SIZE + 15, CELL_SIZE - 26, CELL_SIZE - 26);
         g.setColor(new Color(255, 255, 255)); //outer
-        fillRect(g, renderSize.width / 2 + 3 * CELL_SIZE - 14, renderSize.height - CELL_SIZE + 11, CELL_SIZE - 18, CELL_SIZE - 18);
+        fillRect(g, renderSize.width / 2 + 4 * CELL_SIZE - 14, renderSize.height - CELL_SIZE + 11, CELL_SIZE - 18, CELL_SIZE - 18);
         g.setColor(new Color(255, 255, 255)); //inner
-        fillRect(g, renderSize.width / 2 + 3 * CELL_SIZE - 18, renderSize.height - CELL_SIZE + 15, CELL_SIZE - 26, CELL_SIZE - 26);
+        fillRect(g, renderSize.width / 2 + 4 * CELL_SIZE - 18, renderSize.height - CELL_SIZE + 15, CELL_SIZE - 26, CELL_SIZE - 26);
 
         //Print apple symbols on score board
-        apple.paintIcon(this, g, renderSize.width / 2 - 25, renderSize.height - CELL_SIZE + 3);
+        apple.paintIcon(this, g, renderSize.width / 2 - 80, renderSize.height - CELL_SIZE + 3);
         paintIcon(g, apple, renderSize.width / 2 + 2 * CELL_SIZE, renderSize.height - CELL_SIZE + 3);
 
         //Print apple counts on score board
