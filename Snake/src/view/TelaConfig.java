@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Luis
- */
 public class TelaConfig extends javax.swing.JFrame {
 
     /**
@@ -19,7 +11,7 @@ public class TelaConfig extends javax.swing.JFrame {
      */
     public TelaConfig() {
         initComponents();
-        
+
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (int) ((dimension.getWidth() - this.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - this.getHeight()) / 2);
@@ -191,33 +183,33 @@ public class TelaConfig extends javax.swing.JFrame {
         this.cbAlg1.addItem(item);
         this.cbAlg2.addItem(item);
     }
-    
+
     public void addAcaoBtnJogar(ActionListener acao) {
         this.btnJogar.addActionListener(acao);
     }
-    
+
     public void addAcaoBtnAjuda(ActionListener acao) {
         this.btnAjuda.addActionListener(acao);
     }
-    
+
     public String getSelecionadoCbAlg1() {
         return this.cbAlg1.getSelectedItem().toString();
     }
-    
+
     public String getSelecionadoCbAlg2() {
         return this.cbAlg2.getSelectedItem().toString();
     }
-    
+
     public int getSpnSizeBot() {
         return Integer.valueOf(this.spnSizeBot.getValue().toString());
     }
-    
+
     public double getSpnTimeMov() {
         return Double.valueOf(this.spnTimeMov.getValue().toString());
     }
-    
+
     public int getSpnTimeLimiteGame() {
         return Integer.valueOf(this.spnTimeLimitGame.getValue().toString());
     }
-    
+
 }

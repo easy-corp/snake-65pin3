@@ -27,6 +27,9 @@ public class SnakeGame {
     public long startTime;
     private double timeMov; // timeout for taking a decision in seconds
 
+    public boolean bot0time = false;
+    public boolean bot1time = false;
+
     private SnakesRunner bot0_runner, bot1_runner;
 
     /*
@@ -227,6 +230,7 @@ public class SnakeGame {
             if (bot0_thread.isAlive()) {
                 bot0_thread.interrupt();
                 s0timeout = true;
+                bot0time = true;
                 System.out.println(bot0.getClass().getSimpleName() + " took too long to make a decision");
             }
 
@@ -235,7 +239,7 @@ public class SnakeGame {
             // the second bot takes a decision of next move
             bot1_runner.apple = appleCoordinate;
             Thread bot1_thread = new Thread(bot1_runner);
-            
+
             bot1_thread.start();
             bot1_thread.join((long) (timeMov * 1000));
 
@@ -243,6 +247,7 @@ public class SnakeGame {
             if (bot1_thread.isAlive()) {
                 bot1_thread.interrupt();
                 s1timeout = true;
+                bot1time = true;
                 System.out.println(bot1.getClass().getSimpleName() + " took too long to make a decision");
             }
 
@@ -393,11 +398,11 @@ public class SnakeGame {
     public List<String> getGameResult() {
         List<String> resultados = new ArrayList<>();
 
-        resultados.add(String.valueOf(appleEaten0)); //Resultado bot 1 
+        resultados.add(String.valueOf(appleEaten0)); //Resultado bot 1
         resultados.add(String.valueOf(appleEaten1)); //Resultado bot 2
         resultados.add(String.valueOf((System.currentTimeMillis() - this.startTime) / 1000)); //Tempo do jogo
 
         return resultados;
     }
-    
+
 }
