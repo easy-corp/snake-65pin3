@@ -49,7 +49,7 @@ public class AStarIngenuos implements Bot {
             if (!proximoMovimento.equals(getAntesDaCabeca(snake)) &&  //Não pode mover para tras e se matar
                 proximoMovimento.inBounds(mazeSize) &&                //Não pode mover fora do tabuleiro
                 !snake.elements.contains(proximoMovimento) &&         //Não pode mover para cima do seu corpo
-                !opponent.elements.contains(proximoMovimento)        //Não pode mover para cima do inimigo
+                !opponent.elements.contains(proximoMovimento)         //Não pode mover para cima do inimigo
             ) {
                 //Adicionamos a coordenada do possivel movimento a lista de possiveis celulas
                 //O custo é determinado pelo custo da célula atual + 1

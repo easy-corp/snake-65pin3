@@ -46,6 +46,12 @@ public class RandomBot implements Bot {
             }
         }
 
+        //Se não tiver para onde ir
+        //Retorna uma direção qualquer para matar o bot
+        if (movimentosSafe.isEmpty()) {
+            return Direction.DOWN;
+        }
+
         //Escolhe um dentre os movimentos possiveis
         Direction proxMove = movimentosSafe.get(random.nextInt(movimentosSafe.size()));
 

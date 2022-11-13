@@ -57,7 +57,7 @@ public class Jogo implements Runnable {
         }
 
         System.out.println("--------------");
-        System.out.println("Fim do jogo");
+        System.out.println("Fim do jogo");        
         
         for (String str : this.game.getGameResult()) {
             System.out.println(str);

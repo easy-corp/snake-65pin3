@@ -393,9 +393,8 @@ public class SnakeGame {
     public List<String> getGameResult() {
         List<String> resultados = new ArrayList<>();
 
-        resultados.add(gameResult); //Resultado geral
-        resultados.add(gameResult.substring(0, gameResult.indexOf("-") -1)); //Resultado bot 1 
-        resultados.add(gameResult.substring(gameResult.indexOf("-") + 2, gameResult.length())); //Resultado bot 2
+        resultados.add(String.valueOf(appleEaten0)); //Resultado bot 1 
+        resultados.add(String.valueOf(appleEaten1)); //Resultado bot 2
         resultados.add(String.valueOf((System.currentTimeMillis() - this.startTime) / 1000)); //Tempo do jogo
 
         return resultados;
