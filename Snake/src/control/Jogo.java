@@ -18,22 +18,22 @@ public class Jogo implements Runnable {
     }
 
     @Override
-    public void run() {        
+    public void run() {
         running = true;
-        
+
         this.tela.atualizarTela();
-        
+
         long startTime = System.currentTimeMillis();
-        
+
         while(running) {
             long t = System.currentTimeMillis();
-            
+
             try {
                 running = game.runOneStep();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-                
+
             this.tela.atualizarTela();
 
             long elapsed = System.currentTimeMillis() - t;
@@ -56,12 +56,10 @@ public class Jogo implements Runnable {
             }
         }
 
-        System.out.println("--------------");
-        System.out.println("Fim do jogo");        
-        
-        for (String str : this.game.getGameResult()) {
-            System.out.println(str);
-        }
+        tela.setVisible(false);
+
+        ControladorResultado resultado = new ControladorResultado(game.name0, game.name1, game.bot0time, game.bot1time, this.game.getGameResult());
+        resultado.exibeTela();
     }
 
 }

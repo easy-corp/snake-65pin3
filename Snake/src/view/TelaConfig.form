@@ -111,9 +111,6 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cbAlg2">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="d1" red="0" type="rgb"/>
             </Property>
@@ -135,9 +132,6 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="cbAlg1">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1e" green="d1" red="0" type="rgb"/>
             </Property>

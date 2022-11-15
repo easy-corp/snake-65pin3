@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control.bots;
 
 import control.snakes.Bot;
@@ -12,10 +8,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- *
- * @author Luis
- */
 public class AStarIngenuos implements Bot {
 
     private List<Direction> direcoes;
@@ -30,17 +22,17 @@ public class AStarIngenuos implements Bot {
         direcoes.add(Direction.RIGHT);
         direcoes.add(Direction.LEFT);
     }
-    
+
     @Override
     public Direction chooseDirection(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
         List<NossaCoordenada> abertas = new ArrayList<>();       //Celulas possiveis de serem visitadas
         NossaCoordenada atual;                                   //A coordenada atual do loop
-        
+
         //Adiciona a cabeça da cobra(origem) a lista de células abertas
         //O custo nesse caso é 0
         abertas.add(new NossaCoordenada(snake.getHead(), 0.0));
         atual = getMenorCusto(abertas, apple);
-        
+
         //Se não chegou ao local desejado
         //Verifica os movimentos possiveis nos arredores
         for (Direction d : this.direcoes) {
@@ -60,8 +52,13 @@ public class AStarIngenuos implements Bot {
         //Verifica a direção para ir do ponto onde a cobra está até o ponto desejado
         return getDirection(snake.getHead(), getMenorCusto(abertas, apple).getCoordinate());
     }
+<<<<<<< HEAD
     
     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
+=======
+
+     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
+>>>>>>> 4beba6fb44e168ecb4e059b5626645ee5b2dea9b
     public Coordinate getAntesDaCabeca(Snake snake) {
         Iterator<Coordinate> it = snake.body.iterator(); //Iterando sobre o deque que representa o corpo da cobra
         it.next(); //Coordenada da cabeça
@@ -79,7 +76,7 @@ public class AStarIngenuos implements Bot {
         for (NossaCoordenada nc : coordenadas) {
             if (menorCusto.getCusto() == 0) {
                 menorCusto = nc;
-            } else if ((nc.getCusto() + getDistanciaEuclidiana(nc.getCoordinate(), apple)) < 
+            } else if ((nc.getCusto() + getDistanciaEuclidiana(nc.getCoordinate(), apple)) <
                        (menorCusto.getCusto() + getDistanciaEuclidiana(menorCusto.getCoordinate(), apple))) {
                 menorCusto = nc;
             }
@@ -93,14 +90,14 @@ public class AStarIngenuos implements Bot {
         //Posição atual
         Double x1 = (double) nossaPosicao.getX();
         Double y1 = (double) nossaPosicao.getY();
-        
+
         //Posição objetivo (maçã)
         Double x2 = (double) maca.getX();
         Double y2 = (double) maca.getY();
 
         //Fórmula da Distância Euclidiana
         double distancia = Math.sqrt((Math.pow((x1 - x2), 2)) + (Math.pow(y1 - y2, 2)));
-        
+
         return distancia;
     }
 
@@ -125,5 +122,5 @@ public class AStarIngenuos implements Bot {
             }
         }
     }
-    
+
 }
