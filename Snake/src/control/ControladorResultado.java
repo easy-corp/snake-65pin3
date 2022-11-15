@@ -1,6 +1,7 @@
 package control;
 
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import view.TelaResultado;
 
@@ -8,17 +9,10 @@ public class ControladorResultado {
 
     TelaResultado tela;
 
-    /*public static void main(String[] args) {
-        List<String> teste = new ArrayList<>();
-        teste.add("5");
-        teste.add("7");
-        teste.add("60");
-        ControladorResultado cont = new ControladorResultado("BFS", "AStarIngenuos", teste);
-        cont.exibeTela();
-    }*/
-
     public ControladorResultado(String bot0, String bot1, boolean bot0time, boolean bot1time, List<String> result) {
         tela = new TelaResultado(bot0, bot1);
+
+        addAcaoBotaoFechar();
 
         int tempo = Integer.parseInt(result.get(2));
         int apple0 = Integer.parseInt(result.get(0));
@@ -50,6 +44,15 @@ public class ControladorResultado {
                 tela.getVencedor().setText("Empate");
             }
         }
+    }
+
+    private void addAcaoBotaoFechar() {
+        tela.getFechar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tela.setVisible(false);
+            }
+        });
     }
 
     public void exibeTela() {

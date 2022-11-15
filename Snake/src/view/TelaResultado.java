@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class TelaResultado extends javax.swing.JFrame {
@@ -17,11 +18,13 @@ public class TelaResultado extends javax.swing.JFrame {
     private javax.swing.JLabel jlBot1;
     private javax.swing.JTextField tfBot1;
 
+    private javax.swing.JLabel jlTimeOut;
+    private javax.swing.JTextField tfTimeOut;
+
     private javax.swing.JLabel jlVencedor;
     private javax.swing.JTextField tfVencedor;
 
-    private javax.swing.JLabel jlTimeOut;
-    private javax.swing.JTextField tfTimeOut;
+    private JButton btFechar;
 
     private javax.swing.JPanel paneConfig;
 
@@ -61,11 +64,13 @@ public class TelaResultado extends javax.swing.JFrame {
         jlBot1 = new javax.swing.JLabel();
         tfBot1 = new JTextField();
 
+        jlTimeOut = new javax.swing.JLabel();
+        tfTimeOut = new JTextField();
+
         jlVencedor = new javax.swing.JLabel();
         tfVencedor = new JTextField();
 
-        jlTimeOut = new javax.swing.JLabel();
-        tfTimeOut = new JTextField();
+        btFechar = new JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Snake | Resultado");
@@ -142,6 +147,12 @@ public class TelaResultado extends javax.swing.JFrame {
         paneConfig.add(tfVencedor);
         tfVencedor.setBounds(160, 220, 120, 22);
 
+        btFechar.setBackground(new java.awt.Color(0, 209, 30));
+        btFechar.setForeground(new java.awt.Color(255, 255, 255));
+        btFechar.setText("Fechar");
+        paneConfig.add(btFechar);
+        btFechar.setBounds(200, 390, 75, 22);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,6 +189,10 @@ public class TelaResultado extends javax.swing.JFrame {
 
     public JTextField getTimeOut() {
         return tfTimeOut;
+    }
+
+    public JButton getFechar() {
+        return btFechar;
     }
 
 }
