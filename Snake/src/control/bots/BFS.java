@@ -210,10 +210,10 @@ public class BFS implements Bot {
      */
     private Direction getDirecao(Direction dir) {
         switch (dir) {
-            case UP -> {
+            case UP: {
                 return Direction.DOWN;
             }
-            case DOWN -> {
+            case DOWN: {
                 return Direction.UP;
             }
         }

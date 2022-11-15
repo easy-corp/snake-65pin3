@@ -106,7 +106,7 @@ public class TelaResultado extends javax.swing.JFrame {
 
         jlTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlTitulo.setForeground(new java.awt.Color(0, 209, 30));
-        jlTitulo.setText("RESULTADO");
+        jlTitulo.setText("RESULTADOS");
         paneConfig.add(jlTitulo);
         jlTitulo.setBounds(170, 10, 332, 32);
 
@@ -136,19 +136,19 @@ public class TelaResultado extends javax.swing.JFrame {
 
         jlTempo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jlTempo.setForeground(new java.awt.Color(0, 209, 30));
-        jlTempo.setText("Tempo:");
+        jlTempo.setText("Tempo (segundos):");
         paneConfig.add(jlTempo);
-        jlTempo.setBounds(30, 140, 120, 22);
+        jlTempo.setBounds(30, 140, 140, 22);
 
         tfTempo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         tfTempo.setForeground(new java.awt.Color(0, 209, 30));
         tfTempo.setEditable(false);
         paneConfig.add(tfTempo);
-        tfTempo.setBounds(160, 140, 120, 22);
+        tfTempo.setBounds(190, 140, 120, 22);
 
         jlTimeOut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jlTimeOut.setForeground(new java.awt.Color(0, 209, 30));
-        jlTimeOut.setText("Tempo Limite:");
+        jlTimeOut.setText("Timeout:");
         paneConfig.add(jlTimeOut);
         jlTimeOut.setBounds(30, 180, 120, 22);
 
@@ -156,7 +156,7 @@ public class TelaResultado extends javax.swing.JFrame {
         tfTimeOut.setForeground(new java.awt.Color(0, 209, 30));
         tfTimeOut.setEditable(false);
         paneConfig.add(tfTimeOut);
-        tfTimeOut.setBounds(160, 180, 120, 22);
+        tfTimeOut.setBounds(190, 180, 120, 22);
 
         jlVencedor.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jlVencedor.setForeground(new java.awt.Color(0, 209, 30));
@@ -168,13 +168,13 @@ public class TelaResultado extends javax.swing.JFrame {
         tfVencedor.setForeground(new java.awt.Color(0, 209, 30));
         tfVencedor.setEditable(false);
         paneConfig.add(tfVencedor);
-        tfVencedor.setBounds(160, 220, 120, 22);
+        tfVencedor.setBounds(190, 220, 120, 22);
 
         btFechar.setBackground(new java.awt.Color(0, 209, 30));
         btFechar.setForeground(new java.awt.Color(255, 255, 255));
         btFechar.setText("Fechar");
         paneConfig.add(btFechar);
-        btFechar.setBounds(200, 390, 75, 22);
+        btFechar.setBounds(225, 390, 75, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
