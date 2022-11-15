@@ -1,7 +1,11 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -30,6 +34,25 @@ public class TelaResultado extends javax.swing.JFrame {
 
     private final String bot0;
     private final String bot1;
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        java.net.URL imageURL = getClass().getResource("../control/snakes/images/apple.png");
+
+        if (imageURL != null) {
+            Image appleImage = new ImageIcon(imageURL).getImage().getScaledInstance(40 - 10, 40 - 10, Image.SCALE_SMOOTH);
+            ImageIcon apple = new ImageIcon(appleImage);
+
+            apple.paintIcon(this, g, 140, 113);
+            apple.paintIcon(this, g, 370, 113);
+        }
+    }
+
+    public void paintIcon(Graphics2D g, ImageIcon i, int x, int y) {
+        i.paintIcon(this, g, x - i.getIconWidth(), y);
+    }
 
     public TelaResultado(String bot0, String bot1) {
         this.bot0 = bot0;
@@ -87,45 +110,45 @@ public class TelaResultado extends javax.swing.JFrame {
         paneConfig.add(jlTitulo);
         jlTitulo.setBounds(170, 10, 332, 32);
 
-        jlTempo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jlTempo.setForeground(new java.awt.Color(0, 209, 30));
-        jlTempo.setText("Tempo:");
-        paneConfig.add(jlTempo);
-        jlTempo.setBounds(30, 60, 120, 22);
-
-        tfTempo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        tfTempo.setForeground(new java.awt.Color(0, 209, 30));
-        tfTempo.setEditable(false);
-        paneConfig.add(tfTempo);
-        tfTempo.setBounds(160, 60, 120, 22);
-
         jlBot0.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jlBot0.setForeground(new java.awt.Color(0, 209, 30));
-        jlBot0.setText(bot0 + ":");
+        jlBot0.setText(bot0);
         paneConfig.add(jlBot0);
-        jlBot0.setBounds(30, 100, 120, 22);
+        jlBot0.setBounds(120, 60, 120, 22);
 
         tfBot0.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         tfBot0.setForeground(new java.awt.Color(0, 209, 30));
         tfBot0.setEditable(false);
         paneConfig.add(tfBot0);
-        tfBot0.setBounds(160, 100, 120, 22);
+        tfBot0.setBounds(100, 90, 25, 22);
 
         jlBot1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jlBot1.setForeground(new java.awt.Color(0, 209, 30));
-        jlBot1.setText(bot1 + ":");
+        jlBot1.setText(bot1);
         paneConfig.add(jlBot1);
-        jlBot1.setBounds(30, 140, 120, 22);
+        jlBot1.setBounds(350, 60, 120, 22);
 
         tfBot1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         tfBot1.setForeground(new java.awt.Color(0, 209, 30));
         tfBot1.setEditable(false);
         paneConfig.add(tfBot1);
-        tfBot1.setBounds(160, 140, 120, 22);
+        tfBot1.setBounds(330, 90, 25, 22);
+
+        jlTempo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jlTempo.setForeground(new java.awt.Color(0, 209, 30));
+        jlTempo.setText("Tempo:");
+        paneConfig.add(jlTempo);
+        jlTempo.setBounds(30, 140, 120, 22);
+
+        tfTempo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tfTempo.setForeground(new java.awt.Color(0, 209, 30));
+        tfTempo.setEditable(false);
+        paneConfig.add(tfTempo);
+        tfTempo.setBounds(160, 140, 120, 22);
 
         jlTimeOut.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jlTimeOut.setForeground(new java.awt.Color(0, 209, 30));
-        jlTimeOut.setText("Time Out:");
+        jlTimeOut.setText("Tempo Limite:");
         paneConfig.add(jlTimeOut);
         jlTimeOut.setBounds(30, 180, 120, 22);
 

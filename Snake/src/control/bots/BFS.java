@@ -6,7 +6,6 @@ import control.snakes.Direction;
 import control.snakes.Snake;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class BFS implements Bot {
 
@@ -89,12 +88,11 @@ public class BFS implements Bot {
         // Busca os primeiros sucessores a partir da raiz
         // Remove a cauda sempre antes do proximo movimento
         snake.body.removeLast();
-        List<No> sucessores = getSucessores(raiz, new ArrayList());
+        List<No> sucessores = getSucessores(raiz);
 
         // Variavel auxiliar para salvar os novos sucessores a partir dos atuais
         List<No> newSucessores = new ArrayList<>();
 
-        // Enquanto houverem sucessores
         while (true) {
 
             for (No sucessor : sucessores) {
@@ -111,7 +109,7 @@ public class BFS implements Bot {
 
             for (No sucessor : sucessores) {
                 // senao cria novos nos para percorrer depois
-                newSucessores.addAll(getSucessores(sucessor, sucessores));
+                newSucessores.addAll(getSucessores(sucessor));
             }
 
             // Atribui os novos sucessores
@@ -128,10 +126,9 @@ public class BFS implements Bot {
     /**
      * Retorna os sucessores a partir do no
      * @param no
-     * @param todosSucessores
      * @return List<No>
      */
-    private List<No> getSucessores(No no, List<No> todosSucessores) {
+    private List<No> getSucessores(No no) {
         List<No> sucessores = new ArrayList<>();
 
         for (Direction d : direcoes) {
@@ -142,7 +139,6 @@ public class BFS implements Bot {
             if (sucessor.inBounds(maze)) {
 
                 // Se nao possui o proprio corpo
-//                if (!snake.elements.contains(sucessor)) {
                 if (!snake.elements.contains(sucessor)) {
 
                     // Se nao possui o corpo do oponente
