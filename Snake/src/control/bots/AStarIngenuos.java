@@ -61,7 +61,7 @@ public class AStarIngenuos implements Bot {
         return getDirection(snake.getHead(), getMenorCusto(abertas, apple).getCoordinate());
     }
     
-     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
+    //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
     public Coordinate getAntesDaCabeca(Snake snake) {
         Iterator<Coordinate> it = snake.body.iterator(); //Iterando sobre o deque que representa o corpo da cobra
         it.next(); //Coordenada da cabeça
