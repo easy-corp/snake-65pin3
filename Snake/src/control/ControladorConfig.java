@@ -25,11 +25,14 @@ public class ControladorConfig {
     }
 
     public void preencherAlgoritmos() {
+        this.algoritmos.put("Bot AlphaBeta", "control.bots.AlphaBeta");
         this.algoritmos.put("Bot A*", "control.bots.AStar");
         this.algoritmos.put("Bot A* Ingênuo", "control.bots.AStarIngenuos");
+        this.algoritmos.put("Bot AdderBoaCobra", "control.bots.AdderBoaCobra");
         this.algoritmos.put("Bot Aleatório", "control.bots.RandomBot");
         this.algoritmos.put("Bot BFS", "control.bots.BFS");
-        this.algoritmos.put("Bot Circular ", "control.bots.LoopBot");
+        this.algoritmos.put("Bot Circular", "control.bots.LoopBot");
+        this.algoritmos.put("Bot MinMax", "control.bots.MinMax");
 
         for (String alg : this.algoritmos.keySet()) {
             this.telaConfig.addItemCbAlg(alg);

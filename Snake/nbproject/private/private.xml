@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Luis/Documents/Faculdade/2022/22-02/PIN3/snake-65pin3/Snake/src/view/TelaResultado.java</file>
+            <file>file:/D:/Gabriel/UDESC/22.2/65PIN3%20-%20Projeto%20Integrador%20III/snake-65pin3/Snake/src/control/bots/MinMax.java</file>
+            <file>file:/D:/Gabriel/UDESC/22.2/65PIN3%20-%20Projeto%20Integrador%20III/snake-65pin3/Snake/src/control/bots/AdderBoaCobra.java</file>
+            <file>file:/D:/Gabriel/UDESC/22.2/65PIN3%20-%20Projeto%20Integrador%20III/snake-65pin3/Snake/src/control/bots/AlphaBeta.java</file>
         </group>
     </open-files>
 </project-private>
