@@ -84,7 +84,7 @@ public class AStar implements Bot {
         return getDirection(snake.getHead(), movimento.getCoordinate());
     }
 
-    public Direction modoIngenuo(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
+    private Direction modoIngenuo(Snake snake, Snake opponent, Coordinate mazeSize, Coordinate apple) {
         List<NossaCoordenada> abertas = new ArrayList<>();       //Celulas possiveis de serem visitadas
         NossaCoordenada atual;                                   //A coordenada atual do loop
         
@@ -114,7 +114,7 @@ public class AStar implements Bot {
     }
 
     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
-    public Coordinate getAntesDaCabeca(Snake snake) {
+    private Coordinate getAntesDaCabeca(Snake snake) {
         Iterator<Coordinate> it = snake.body.iterator(); //Iterando sobre o deque que representa o corpo da cobra
         it.next(); //Coordenada da cabeça
         Coordinate antesCabeca = it.next(); //Coordenada mortal
@@ -125,7 +125,7 @@ public class AStar implements Bot {
     //Recupera a coordenada de menor custo dentro da lista
     //Ignora custo 0
     //Custo = Custo + Distância Euclidiana
-    public NossaCoordenada getMenorCusto(List<NossaCoordenada> coordenadas, Coordinate apple) {
+    private NossaCoordenada getMenorCusto(List<NossaCoordenada> coordenadas, Coordinate apple) {
         NossaCoordenada menorCusto = coordenadas.get(0);
 
         for (NossaCoordenada nc : coordenadas) {
@@ -141,7 +141,7 @@ public class AStar implements Bot {
     }
 
     //Calcula a Distância Euclidiana entre o ponto atual e a maçã
-    public Double getDistanciaEuclidiana(Coordinate nossaPosicao, Coordinate maca) {
+    private Double getDistanciaEuclidiana(Coordinate nossaPosicao, Coordinate maca) {
         //Posição atual
         Double x1 = (double) nossaPosicao.getX();
         Double y1 = (double) nossaPosicao.getY();
@@ -157,7 +157,7 @@ public class AStar implements Bot {
     }
 
     //Retorna direção para chegar ao ponto X
-    public Direction getDirection(Coordinate snake, Coordinate coordenada) {
+    private Direction getDirection(Coordinate snake, Coordinate coordenada) {
 
         if (snake.getX() == coordenada.getX()) {
             if (snake.getY() < coordenada.getY()) {
@@ -179,7 +179,7 @@ public class AStar implements Bot {
     }
 
     //Verificada se determinada coordenada esta entre os elementos da lista
-    public boolean contemCoordenada(List<NossaCoordenada> lista, Coordinate coordenada) {
+    private boolean contemCoordenada(List<NossaCoordenada> lista, Coordinate coordenada) {
         for (NossaCoordenada nc : lista) {
             if (nc.getCoordinate().equals(coordenada)) {
                 return true;
@@ -190,7 +190,7 @@ public class AStar implements Bot {
     }
     
     //Constroi caminho inverso, da maçã até a cobra
-    public List<NossaCoordenada> constroiCaminho(List<NossaCoordenada> expandidas) {
+    private List<NossaCoordenada> constroiCaminho(List<NossaCoordenada> expandidas) {
         List<NossaCoordenada> caminho = new ArrayList<>();
         NossaCoordenada celula = expandidas.get(expandidas.size() - 1);
 

@@ -56,7 +56,7 @@ public class SnakesUIMain {
         start_round_robin_tournament(bots);
     }
 
-    public void acaoTeclas() {
+    private void acaoTeclas() {
         // this.window.getCanvas().addAcaoTeclas(new KeyListener() {
 
         //     @Override
@@ -85,7 +85,7 @@ public class SnakesUIMain {
         // });
     }
     
-    public void criarJogo() {
+    private void criarJogo() {
         Bot bot0 = bots.get(0);
         Bot bot1 = bots.get(1);
 
@@ -93,7 +93,7 @@ public class SnakesUIMain {
         criarTela();
     }
 
-    public void criarTela() {
+    private void criarTela() {
        window = new TelaJogo(game);
     }
 

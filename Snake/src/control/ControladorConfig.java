@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import view.TelaAjuda;
 import view.TelaConfig;
@@ -24,7 +22,7 @@ public class ControladorConfig {
         this.acaoBotoes();
     }
 
-    public void preencherAlgoritmos() {
+    private void preencherAlgoritmos() {
         this.algoritmos.put("Bot AlphaBeta", "control.bots.AlphaBeta");
         this.algoritmos.put("Bot A*", "control.bots.AStar");
         this.algoritmos.put("Bot A* Ingênuo", "control.bots.AStarIngenuos");
@@ -39,7 +37,7 @@ public class ControladorConfig {
         }
     }
 
-    public void acaoBotoes() {
+    private void acaoBotoes() {
         this.telaConfig.addAcaoBtnAjuda(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

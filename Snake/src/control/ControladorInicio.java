@@ -16,7 +16,7 @@ public class ControladorInicio {
         this.acaoBotoes();
     }
 
-    public void acaoBotoes() {
+    private void acaoBotoes() {
         this.telaInicial.addAcaoBtnIniciar(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

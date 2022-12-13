@@ -7,7 +7,7 @@ import view.TelaResultado;
 
 public class ControladorResultado {
 
-    TelaResultado tela;
+    private TelaResultado tela;
 
     public ControladorResultado(String bot0, String bot1, boolean bot0time, boolean bot1time, List<String> result) {
         tela = new TelaResultado(bot0, bot1);

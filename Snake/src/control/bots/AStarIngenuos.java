@@ -54,7 +54,7 @@ public class AStarIngenuos implements Bot {
     }
     
     //Localiza a coordenada contraria a cabeça, que seria um movimento mortal
-    public Coordinate getAntesDaCabeca(Snake snake) {
+    private Coordinate getAntesDaCabeca(Snake snake) {
         Iterator<Coordinate> it = snake.body.iterator(); //Iterando sobre o deque que representa o corpo da cobra
         it.next(); //Coordenada da cabeça
         Coordinate antesCabeca = it.next(); //Coordenada mortal
@@ -65,7 +65,7 @@ public class AStarIngenuos implements Bot {
     //Recupera a coordenada de menor custo dentro da lista
     //Ignora custo 0
     //Custo = Custo + Distância Euclidiana
-    public NossaCoordenada getMenorCusto(List<NossaCoordenada> coordenadas, Coordinate apple) {
+    private NossaCoordenada getMenorCusto(List<NossaCoordenada> coordenadas, Coordinate apple) {
         NossaCoordenada menorCusto = coordenadas.get(0);
 
         for (NossaCoordenada nc : coordenadas) {
@@ -81,7 +81,7 @@ public class AStarIngenuos implements Bot {
     }
 
     //Calcula a Distância Euclidiana entre o ponto atual e a maçã
-    public Double getDistanciaEuclidiana(Coordinate nossaPosicao, Coordinate maca) {
+    private Double getDistanciaEuclidiana(Coordinate nossaPosicao, Coordinate maca) {
         //Posição atual
         Double x1 = (double) nossaPosicao.getX();
         Double y1 = (double) nossaPosicao.getY();
@@ -97,7 +97,7 @@ public class AStarIngenuos implements Bot {
     }
 
     //Retorna direção para chegar ao ponto X
-    public Direction getDirection(Coordinate snake, Coordinate coordenada) {
+    private Direction getDirection(Coordinate snake, Coordinate coordenada) {
 
         if (snake.getX() == coordenada.getX()) {
             if (snake.getY() < coordenada.getY()) {
