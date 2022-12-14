@@ -29,8 +29,8 @@ public class ControladorConfig {
         this.algoritmos.put("Bot Aleatório", "control.bots.RandomBot");
         this.algoritmos.put("Bot BFS", "control.bots.BFS");
         this.algoritmos.put("Bot Circular", "control.bots.LoopBot");
-        this.algoritmos.put("Bot V_smirnov", "control.bots.V_smirnov");
-        this.algoritmos.put("Bot A_zhuchkov", "control.bots.A_zhuchkov");
+        this.algoritmos.put("Bot V_smirnov", "control.bots.VSmirnov");
+        this.algoritmos.put("Bot A_zhuchkov", "control.bots.AZhuchkov");
 
         for (String alg : this.algoritmos.keySet()) {
             this.telaConfig.addItemCbAlg(alg);

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
 
-public class A_zhuchkov implements Bot {
+public class AZhuchkov implements Bot {
     private final Random rnd = new Random();
     private static final Direction[] DIRECTIONS = new Direction[]{Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT};
 
